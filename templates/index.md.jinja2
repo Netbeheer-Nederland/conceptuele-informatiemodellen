@@ -187,7 +187,7 @@ Deze website is in opbouw. Pagina's kunnen onvolledige of onjuiste informatie be
 {{ gen.mermaid_diagram() }}
 ``` #}
 {% else %}
-image::{{ schema.name | replace("-", "_")}}.ontology.drawio.svg[title="Diagram"]
+image::{{ schema.title | replace("-", "_")}}.drawio.svg[title="Diagram"]
 
 .Legenda
 [%collapsible]
