@@ -1,4 +1,5 @@
 = {% if schema.title %}{{ schema.title }}{% else %}{{ schema.name }}{% endif %}
+:figure-caption!:
 
 :toc:
 :toclevels: 3
@@ -187,7 +188,7 @@ Deze website is in opbouw. Pagina's kunnen onvolledige of onjuiste informatie be
 {{ gen.mermaid_diagram() }}
 ``` #}
 {% else %}
-image::{{ schema.title | replace("-", "_")}}.drawio.svg[title="Diagram"]
+image::{{ schema.name | replace("-", "_")}}.drawio.svg[title="Diagram"]
 
 .Legenda
 [%collapsible]
