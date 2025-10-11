@@ -1,4 +1,4 @@
-* Conceptuele informatiemodellen
+* xref:conceptuele-informatiemodellen::index.adoc[]
 ** xref:conceptuele-informatiemodellen::modelleurs/index.adoc[]
 *** xref:conceptuele-informatiemodellen::modelleurs/basisregistraties.adoc[]
 *** xref:conceptuele-informatiemodellen::modelleurs/definities.adoc[]
