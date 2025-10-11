@@ -78,8 +78,7 @@ generate-documentation: clean
             echo 'include::conceptuele-informatiemodellen::partial$nav.adoc[]' > "artifacts/documentation/$model/$version/modules/ROOT/nav.adoc"
 
             # Generate AsciiDoc
-            #uv run linkml generate doc \
-            gen-doc \
+            poetry run linkml generate doc \
                 --template-directory templates \
                 -d "artifacts/documentation/$model/$version/modules/ROOT/pages" \
                 models/$model/$version/$model.linkml.yml; \
