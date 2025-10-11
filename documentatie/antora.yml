@@ -1,5 +1,0 @@
-name: documentatie
-title: Documentatie
-version: ~
-nav:
-- modules/ROOT/nav.adoc
