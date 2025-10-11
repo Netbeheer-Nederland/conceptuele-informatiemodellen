@@ -302,8 +302,10 @@ _{% if slot.annotations.inverse_cardinality %}{{slot.annotations.inverse_cardina
 | {{omschrijving(t)}}
 | {% if t.typeof %}{{link(t.typeof)}}{% else %}{{range(t.base)}}{% endif %}
 | {% if t.pattern %}`{{t.pattern}}`{% endif %}
-{% endfor %}
+{% if loop.last %}
 |===
+{% endif %}
+{% endfor %}
 
 {% for e in gen.all_enum_objects() | sort(attribute=sort_by) %}
 {% if loop.first %}
