@@ -96,7 +96,11 @@
         {%- for m in mappings -%}
             {%- set _ = linked.append(uri_link(m)) -%}
         {%- endfor -%}
-        {{- label ~ ': ' ~ linked | join(', ') -}}
+        {%- if type == 'exact' -%}
+            {{- '_' ~ linked | join(', ') ~ '_' -}}
+        {%- else -%}
+            {{- label ~ ': ' ~ linked | join(', ') -}}
+        {%- endif -%}
     {%- endif -%}
 {%- endmacro -%}
 
