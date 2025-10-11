@@ -1,12 +1,6 @@
-= {{ schema.title }}
-
-:toc:
-:toclevels: 3
-:parent: {{ schema.title }}
-
 {%- macro uri_link(curie) -%}
   {%- set curie_md = gen.uri_link(curie) -%}
-  {{ curie_md.strip(")").replace("[", "`").replace("]", "`").split("(") | reverse | join("[") ~ "]" }}
+  {{curie_md.strip(")").replace("[", "`").replace("]", "`").split("(") | reverse | join("[") ~ "]"}}
 {%- endmacro -%}
 
 {%- macro key_symbol(class, slot) -%}
@@ -27,7 +21,7 @@
     {%- set allowed = 'abcdefghijklmnopqrstuvwxyz0123456789-' -%}
     {%- for c in v|lower -%}
         {%- if c in allowed -%}
-            {{ c }}
+            {{c}}
         {%- elif c == ' ' -%}
             -
         {%- endif -%}
@@ -35,7 +29,7 @@
 {%- endmacro -%}
 
 {%- macro link(name) -%}
-    <<{{ id_safe(name) }},{{ name }}>>
+    <<{{id_safe(name)}},{{name}}>>
 {%- endmacro -%}
 
 {%- macro anchor(name) -%}
@@ -59,16 +53,16 @@
         'uri': 'URI',
         'ncname': 'prefixnaam' } -%}
     {%- if name in base_types -%}
-        {{ base_types[name] }}
+        {{base_types[name]}}
     {%- elif name in schemaview.all_classes() -%}
         {%- set class = schemaview.get_class(name) -%}
         {%- if class.annotations.external_registry -%}
-            {{ name }} ({{class.annotations.external_registry.value}})
+            {{name}} ({{class.annotations.external_registry.value}})
         {%- else -%}
-            {{ link(name) }}
+            {{link(name)}}
         {%- endif -%}
     {%- else -%}
-        {{ link(name) }}
+        {{link(name)}}
     {%- endif -%}
 {%- endmacro -%}
 
@@ -79,19 +73,19 @@
                 {%- if not loop.first -%}
                     {nbsp}
                 {%- endif -%}
-                óf {{ range(subslot_range) }}
+                óf {{range(subslot_range)}}
             {%- else -%}
-                {{ range(subslot_range) }}
+                {{range(subslot_range)}}
                 {%- if not loop.last -%}
                     {nbsp}en/of{nbsp}
                 {%- endif -%}
             {%- endif -%}
         {%- endfor -%}
     {%- else -%}
-        {{ range(slot.range) }}
+        {{range(slot.range)}}
     {%- endif -%}
     {%- if slot.unit.ucum_code -%}
-        {nbsp}({{ slot.unit.ucum_code }})
+        {nbsp}({{slot.unit.ucum_code}})
     {%- endif -%}
 {%- endmacro -%}
 
@@ -192,17 +186,23 @@
         {%- set _ = parts.items.append('Tijdlijnen: ' ~ tijdlijn_annotaties|join(', ')) -%}
     {%- endif -%}
 
-    {{ parts.items | join('\n\n') }}
+    {{parts.items | join('\n\n')}}
 {%- endmacro -%}
+
+= {{schema.title}}
+:table-caption!:
+
+:toc:
+:parent: {{schema.title}}
 
 [WARNING,caption="Let op"]
 --
 Deze website is in opbouw. Pagina's kunnen onvolledige of onjuiste informatie bevatten.
 --
 
-{{ omschrijving(schema) }}
+{{omschrijving(schema)}}
 
-image::{{ schema.name }}.drawio.svg[]
+image::{{schema.name}}.drawio.svg[]
 
 .Legenda
 [%collapsible]
@@ -216,18 +216,16 @@ Komt nog!
 
 [source,yaml]
 ....
-include::attachment${{ schema.name }}.linkml.yml[]
+include::attachment${{schema.name}}.linkml.yml[]
 ....
 
 ====
-
-== Entiteiten
 
 {% for class in gen.all_class_objects() | sort(attribute=sort_by) %}
 {% if class.name != 'Any' and not class.annotations.external_registry %}
 
 {{anchor(class.name)}}
-=== {{class.name}}
+== {{class.name}}
 
 {% if class.is_a %}
 Specialisatie van {{link(schemaview.get_class(class.is_a).name)}}
@@ -237,32 +235,31 @@ Specialisatie van {{link(schemaview.get_class(class.is_a).name)}}
 
 {% set properties = [] %}
 {% set relationships = [] %}
-{% for slot in gen.get_direct_slots(class) | sort(attribute=sort_by) %}
-    {% set effective_ranges = [] %}
-    {% set sub_expressions = (slot.any_of or []) + (slot.all_of or []) + (slot.exactly_one_of or []) %}
-    {% if sub_expressions %}
-        {% for sub in sub_expressions %}
-            {% for r in schemaview.slot_range_as_union(sub) %}
-                {% if r not in effective_ranges %}
-                    {% set _ = effective_ranges.append(r) %}
-                {% endif %}
-            {% endfor %}
-        {% endfor %}
-    {% else %}
-        {% set effective_ranges = schemaview.slot_range_as_union(slot) %}
-    {% endif %}
-    {% set some_are_classes = effective_ranges | select('in', schemaview.all_classes()) | list | length > 0 %}
-    {% if some_are_classes %}
-        {% set _ = relationships.append(slot) %}
-    {% else %}
-        {% set _ = properties.append(slot) %}
-    {% endif %}
-{% endfor %}
+{% for slot in gen.get_direct_slots(class) | sort(attribute=sort_by) -%}
+    {%- set effective_ranges = [] -%}
+    {%- set sub_expressions = (slot.any_of or []) + (slot.all_of or []) + (slot.exactly_one_of or []) -%}
+    {%- if sub_expressions -%}
+        {%- for sub in sub_expressions -%}
+            {%- for r in schemaview.slot_range_as_union(sub) -%}
+                {%- if r not in effective_ranges -%}
+                    {%- set _ = effective_ranges.append(r) -%}
+                {%- endif -%}
+            {%- endfor -%}
+        {%- endfor -%}
+    {%- else -%}
+        {%- set effective_ranges = schemaview.slot_range_as_union(slot) -%}
+    {%- endif -%}
+    {%- set some_are_classes = effective_ranges | select('in', schemaview.all_classes()) | list | length > 0 -%}
+    {%- if some_are_classes -%}
+        {%- set _ = relationships.append(slot) -%}
+    {%- else -%}
+        {%- set _ = properties.append(slot) -%}
+    {%- endif -%}
+{%- endfor %}
 
 {% if properties %}
-==== Eigenschappen
-
-[cols="1,1,3",width="100%"]
+.Eigenschappen
+[%autowidth.stretch]
 |===
 | Eigenschap | Waardespecificatie | Omschrijving
 
@@ -275,14 +272,13 @@ Specialisatie van {{link(schemaview.get_class(class.is_a).name)}}
 {% endif %}
 
 {% if relationships %}
-==== Relaties
-
-[cols="2,3",width="100%"]
+.Relaties
+[%autowidth.stretch]
 |===
 | {{class.name}} is ... | Omschrijving
 
 {% for slot in relationships -%}
-| {{key_symbol(class, slot)}}{{slot.name}} {{compute_range(slot)}} [{% if slot.annotations.inverse_cardinality %}{{slot.annotations.inverse_cardinality.value }}{% endif %} → {{ gen.cardinality(slot) }}]
+| {{key_symbol(class, slot)}}{{slot.name}} {{compute_range(slot)}} [{% if slot.annotations.inverse_cardinality %}{{slot.annotations.inverse_cardinality.value}}{% endif %} → {{gen.cardinality(slot)}}]
 | {{omschrijving(slot)}}
 {% endfor %}
 |===
@@ -291,13 +287,12 @@ Specialisatie van {{link(schemaview.get_class(class.is_a).name)}}
 {% endif %}
 {% endfor %}
 
-== Waardesoorten en waardelijsten
-
 {% for t in gen.all_type_objects() | sort(attribute=sort_by) -%}
 {% if loop.first %}
-=== Waardesoorten
+[discrete]
+== Waardesoorten
 
-[cols="1,3,1,1",width="100%"]
+[%autowidth.stretch]
 |===
 | Waardesoort | Omschrijving | Gebaseerd op | Patroon
 
@@ -313,15 +308,17 @@ Specialisatie van {{link(schemaview.get_class(class.is_a).name)}}
 
 {% for e in gen.all_enum_objects() | sort(attribute=sort_by) %}
 {% if loop.first %}
-=== Waardelijsten
+[discrete]
+== Waardelijsten
 {% endif %}
 
-{{ anchor(e.name) }}
-==== {{e.name}}
+{{anchor(e.name)}}
+[discrete]
+=== {{e.name}}
 
 {{omschrijving(e)}}
 
-[cols="1,5",width="100%"]
+[%autowidth.stretch]
 |===
 | Waarde | Omschrijving
 

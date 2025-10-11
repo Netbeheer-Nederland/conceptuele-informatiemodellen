@@ -552,6 +552,8 @@ classes:
         any_of:
           - range: Niet-numerieke aansluitcapaciteit
           - range: float
+        annotations:
+          personal_data: true
       aansluitspanning of leveringsdruk:
         description: nominale spanning of druk op het overdrachtspunt
         comments:
