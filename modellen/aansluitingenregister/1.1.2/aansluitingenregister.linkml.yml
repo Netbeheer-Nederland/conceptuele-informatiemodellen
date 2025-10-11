@@ -51,6 +51,11 @@ classes:
     slots:
       - EAN-code
       - energiedrager
+    slot_usage:
+      EAN-code:
+        annotations:
+          # conventie: markering van persoonsgegevens
+          personal_data: true
     attributes:
       gecontracteerde transportcapaciteit:
         exact_mappings:
@@ -127,9 +132,13 @@ classes:
         source: nen:nen-5825-2002-nl-83617
         required: true
         range: integer
+        annotations:
+          personal_data: true
       huisnummertoevoeging:
         description: aan een verblijfsobject, standplaats of ligplaats toegekende nadere toevoeging aan een huisnummer inclusief huisletter
         source: nen:nen-5825-2002-nl-83617
+        annotations:
+          personal_data: true
       landcode:
         description: identificatie van een land met twee letters conform ISO 3166-1
         source: iso:iso-3166-country-codes.html
@@ -137,8 +146,12 @@ classes:
       locatienummer:
         description: identificatie van een aansluitlocatie
         required: true
+        annotations:
+          personal_data: true
       locatieomschrijving:
         description: omschrijving van de ligging van een aansluitlocatie, eventueel ten opzichte van een nabijgelegen adres
+        annotations:
+          personal_data: true
       postcode:
         description: reeks tekens die in een postadres wordt opgenomen om het automatisch sorteren van de post gemakkelijker te maken
         source: nen:nen-5825-2002-nl-83617
@@ -152,6 +165,8 @@ classes:
         required: true
       toegangsinstructie:
         description: beschrijving van wat je moet doen om een locatie binnen te kunnen of mogen gaan
+        annotations:
+          personal_data: true
       verdieping toegang:
         description: aanduiding op welke verdieping de toegangsdeur van de aansluitlocatie zich bevindt
         source: adamstelsel:bag-index/catalogus-bag/objectklasse-vbo/kenmerk-bouwlaag/
@@ -173,11 +188,15 @@ classes:
         range: float
         unit:
           ucum_code: m
+        annotations:
+          personal_data: true
       y-coördinaat:
         description: noord-zuidpositie van een punt in het Rijksdriehoeksstelsel (RD)
         range: float
         unit:
           ucum_code: m
+        annotations:
+          personal_data: true
       # relaties
       in zelfde onroerende zaak als: 
         comments:
@@ -194,12 +213,14 @@ classes:
         multivalued: false
         annotations:
           inverse_cardinality: "*"
+          personal_data: true
       in nabijheid van:
         range: Nummeraanduiding
         required: false
         multivalued: false
         annotations:
           inverse_cardinality: "*"
+          personal_data: true
     unique_keys:
       identificatie:
         unique_key_slots:
@@ -248,8 +269,6 @@ classes:
     description: punt waar invoeding, onttrekking of verbruik van elektriciteit of gas wordt toegerekend aan een marktdeelnemer
     # conventie: `source` bevat de bron waarop de term of definitie is gebaseerd
     source: bce:z=2025-04-26&g=2025-04-26
-    slots:
-      - EAN-code
     slot_usage:
       EAN-code:
         comments:
@@ -279,6 +298,12 @@ classes:
   Allocatiepunt bij aansluiting:
     is_a: Allocatiepunt
     description: allocatiepunt toegekend aan een aansluiting
+    slots:
+      - EAN-code
+    slot_usage:
+      EAN-code:
+        annotations:
+          personal_data: true
     attributes:
       administratieve status van meetinrichting:
         description: geeft weer of de aangeslotene de mogelijkheid om de meter op afstand uit te lezen administratief heeft laten uitzetten
@@ -332,6 +357,8 @@ classes:
   Allocatiepunt bij netgebied:
     description: allocatiepunt toegekend aan een netgebied
     is_a: Allocatiepunt
+    slots:
+      - EAN-code
     attributes:
       type:
         description: geeft weer bij welke vorm van netverlies het allocatiepunt hoort

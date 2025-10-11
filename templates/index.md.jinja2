@@ -12,9 +12,15 @@
 {%- macro key_symbol(class, slot) -%}
     {%- for key in class.unique_keys -%}
         {%- if slot.name in class.unique_keys[key].unique_key_slots -%}
-            ⚿{nbsp}
+            pass:[<span title="Maakt deel uit van de identificatie">🔑</span>&nbsp;]
         {%- endif -%}
     {%- endfor -%}
+{%- endmacro -%}
+
+{%- macro privacy_symbol(slot) -%}
+    {%- if slot.annotations.personal_data -%}
+        pass:[<span title="Persoonsgegeven">👤</span>&nbsp;]
+    {%- endif -%}
 {%- endmacro -%}
 
 {%- macro id_safe(v) -%}
@@ -261,9 +267,8 @@ Specialisatie van {{link(schemaview.get_class(class.is_a).name)}}
 | Eigenschap | Waardespecificatie | Omschrijving
 
 {% for slot in properties -%}
-| {{key_symbol(class, slot)}}{{slot.name}} {{is_unique_key_slot}}
-| {{compute_range(slot)}} +
-_{{gen.cardinality(slot)}}_
+| {{key_symbol(class, slot)}}{{privacy_symbol(slot)}}{{slot.name}}
+| {{compute_range(slot)}} [{{gen.cardinality(slot)}}]
 | {{omschrijving(slot)}}
 {% endfor %}
 |===
@@ -277,8 +282,7 @@ _{{gen.cardinality(slot)}}_
 | {{class.name}} is ... | Omschrijving
 
 {% for slot in relationships -%}
-| {{key_symbol(class, slot)}}{{slot.name}} {{compute_range(slot)}} +
-_{% if slot.annotations.inverse_cardinality %}{{slot.annotations.inverse_cardinality.value }}{% endif %} → {{ gen.cardinality(slot) }}_
+| {{key_symbol(class, slot)}}{{slot.name}} {{compute_range(slot)}} [{% if slot.annotations.inverse_cardinality %}{{slot.annotations.inverse_cardinality.value }}{% endif %} → {{ gen.cardinality(slot) }}]
 | {{omschrijving(slot)}}
 {% endfor %}
 |===
