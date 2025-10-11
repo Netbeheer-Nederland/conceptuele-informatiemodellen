@@ -1,5 +1,4 @@
 = {{ schema.title }}
-:figure-caption!:
 
 :toc:
 :toclevels: 3
@@ -197,7 +196,7 @@ Deze website is in opbouw. Pagina's kunnen onvolledige of onjuiste informatie be
 
 {{ omschrijving(schema) }}
 
-image::{{ schema.name }}.drawio.svg[title="Diagram"]
+image::{{ schema.name }}.drawio.svg[]
 
 .Legenda
 [%collapsible]
@@ -257,13 +256,13 @@ Specialisatie van {{link(schemaview.get_class(class.is_a).name)}}
 {% if properties %}
 ==== Eigenschappen
 
-[cols="2,2,5",width="100%"]
+[cols="1,1,3",width="100%"]
 |===
 | Eigenschap | Waardespecificatie | Omschrijving
 
 {% for slot in properties -%}
 | {{key_symbol(class, slot)}}{{slot.name}} {{is_unique_key_slot}}
-a| {{compute_range(slot)}} +
+| {{compute_range(slot)}} +
 _{{gen.cardinality(slot)}}_
 | {{omschrijving(slot)}}
 {% endfor %}
@@ -294,12 +293,12 @@ _{% if slot.annotations.inverse_cardinality %}{{slot.annotations.inverse_cardina
 {% if loop.first %}
 === Waardesoorten
 
-[cols="1,4,1,1",width="100%"]
+[cols="1,3,1,1",width="100%"]
 |===
 | Waardesoort | Omschrijving | Gebaseerd op | Patroon
 
 {% endif -%}
-| {{anchor(t.name)}}
+| {{anchor(t.name)}}{{t.name}}
 | {{omschrijving(t)}}
 | {% if t.typeof %}{{link(t.typeof)}}{% else %}{{range(t.base)}}{% endif %}
 | {% if t.pattern %}`{{t.pattern}}`{% endif %}
@@ -316,7 +315,7 @@ _{% if slot.annotations.inverse_cardinality %}{{slot.annotations.inverse_cardina
 
 {{omschrijving(e)}}
 
-[cols="1,2",width="100%"]
+[cols="1,5",width="100%"]
 |===
 | Waarde | Omschrijving
 
