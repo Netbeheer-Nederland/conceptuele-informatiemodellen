@@ -1,0 +1,5 @@
+name: meetcomponentenregister
+title: Meetcomponentenregister
+version: 1.0.0
+nav:
+  - modules/ROOT/nav.adoc

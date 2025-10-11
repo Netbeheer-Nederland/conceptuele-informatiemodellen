@@ -1,0 +1,760 @@
+= Meetcomponentenregister
+
+:toc:
+:toclevels: 3
+:parent: Meetcomponentenregister[WARNING,caption="Let op"]
+--
+Deze website is in opbouw. Pagina's kunnen onvolledige of onjuiste informatie bevatten.
+--
+
+NBility: https://nbility-model.github.io/NBility-business-capabilities-Archi/?view=id-8becf2d90261476faa9d53240e6cf2c8[C.3.1.9. Netcomponent in levenscyclusbeheer opnemen]
+
+_Register met gegevens over meters en meetgateways die worden beheerd door Nederlandse netbeheerders._
+
+Het Meetcomponentenregister bevat informatie over fysieke apparaten met meetgerelateerde functionaliteit, zoals energiehoeveelheidsmeters en communicatiegateways, die zijn bedoeld voor gebruik bij kleinverbruikaansluitingen. Deze componenten worden ingezet voor het registreren van gegevens over energie-uitwisseling of het overbrengen daarvan via mobiele communicatie.
+
+Binnen het meetdomein nemen wij ook meetgateways op in het meetcomponentenregister, ondanks hun telecomkarakter. De reden is dat deze gateways een essentiële schakel vormen in de keten van meetdata: zij transporteren juridisch en financieel bindende meetwaarden richting marktpartijen en zijn functioneel gekoppeld aan specifieke meters of meternetwerken. Net als meters ontvangen zij een unieke codering en vallen zij onder specifieke eisen ten aanzien van beschikbaarheid, beveiliging en controleerbaarheid. Om de meetverantwoordelijkheid sluitend en auditbaar te organiseren, hanteren wij daarom eerst een onderscheid binnen de netbeheerder tussen zuiver netbeheer en meterbeheer (op kleinverbruikaansluitingen), en pas daarna een functionele uitsplitsing (zoals meten, communiceren, synchroniseren). Vanuit die logica maken gateways integraal deel uit van het meetcomponentenregister.
+
+Een streng van lichtmasten ([artikel 3.3.3 van de Tarievencode elektriciteit](https://wetten.overheid.nl/jci1.3:c:BWBR0037951&hoofdstuk=3&paragraaf=3.3&artikel=3.3.3&z=2025-04-26&g=2025-04-26)) kan worden beschouwd als een aansluiting met één (primair) allocatiepunt en veel overdrachtspunten. Indien bemeting voor verrekening in deze situatie niet is toegestaan, dan beschouwen we de meter niet als meter (ten behoeve van de verrekening) maar als sensor in het net, dat buiten het bereik van dit register valt.
+
+⚠ Enexis heeft aangegeven graag ook meters die als sensor in het net worden ingezet (en dus niet als meetcomponent in de traditionele zin) in dit register op te nemen. Die wens is nu nog niet verwerkt, mede omdat het achterliggende doel nog niet helemaal duidelijk is. Doen deze apparaten mee met steekproeven? Worden ze verwijderd nadat de populatie is afgekeurd? Moeten de meetwaarden via de centrale head-end worden uitgelezen? Vindt daardoor ongewenste IT/OT-vermenging plaats? Kunnen deze apparaten een herinzet krijgen als meter bij een aansluiting? Antwoorden verschillende netbeheerders verschillend op deze vragen? Als de apparaten worden ingezet als sensor in het net, welke extra informatie moet dan worden geregistreerd? Stationsnummer, netfunctie-ID, ...? Als het doel helder wordt, kunnen we samen bepalen hoe dit een plek krijgt. Tot die tijd hanteren we het onderscheid binnen de netbeheerder tussen zuiver netbeheer en meterbeheer (op kleinverbruikaansluitingen), waarbij dit register zich beperkt tot de doelen van de meterbeheerder (op kleinverbruikaansluitingen).
+
+image::meetcomponentenregister.drawio.svg[]
+
+.Legenda
+[%collapsible]
+====
+Komt nog!
+====
+
+.LinkML
+[%collapsible]
+====
+
+[source,yaml]
+....
+include::attachment$meetcomponentenregister.linkml.yml[]
+....
+
+====
+
+== Entiteiten
+
+
+
+
+
+
+
+
+
+
+[[gatewayadapter]]
+=== Gatewayadapter
+
+
+
+NBility: https://nbility-model.github.io/NBility-business-capabilities-Archi/?view=id-8becf2d90261476faa9d53240e6cf2c8[Netcomponent]
+
+_apparaat bedoeld om een meetgateway te voorzien van voeding en gebruikersinterface_
+
+
+
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+
+
+==== Eigenschappen
+
+[cols="1,1,3",width="100%"]
+|===
+| Eigenschap | Waardespecificatie | Omschrijving
+
+| pass:[<span title="Maakt deel uit van de identificatie">🔑</span>&nbsp;]identificatie
+| tekst [1]
+| _unieke aanduiding waarmee een instantie van een object binnen een gegeven context ondubbelzinnig herkenbaar is_
+
+|===
+
+
+
+==== Relaties
+
+[cols="2,3",width="100%"]
+|===
+| Gatewayadapter is ... | Omschrijving
+
+| ondersteuning voor <<meetgateway,Meetgateway>> [0..1 → 1]
+| _voorziet de meetgateway van voeding en/of display_
+
+|===
+
+
+
+
+
+
+
+
+
+
+
+
+[[meetcomponent]]
+=== Meetcomponent
+
+
+
+NBility: https://nbility-model.github.io/NBility-business-capabilities-Archi/?view=id-8becf2d90261476faa9d53240e6cf2c8[Netcomponent]
+
+_apparaat dat energie-uitwisseling meet of deze meting op afstand uitleesbaar maakt_
+
+Tijdlijnen: geldigheid, registratie
+
+
+
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+
+
+==== Eigenschappen
+
+[cols="1,1,3",width="100%"]
+|===
+| Eigenschap | Waardespecificatie | Omschrijving
+
+| afkeurjaar
+| geheel getal [0..1]
+| _kalenderjaar waarin is vastgesteld dat het apparaat ongeschikt is voor verder gebruik_
+| bouwjaar
+| geheel getal [0..1]
+| _jaar waarin de meter voor het eerst is geproduceerd, zoals vermeld op het apparaat of geregistreerd in een daartoe bestemd systeem_
+
+Verplicht indien niet gereviseerd.
+| dossierreden
+| <<dossierreden,Dossierreden>> [0..1]
+| _oorzaak van het niet tijdig verwijderen van een afgekeurde meter_
+| generatie
+| geheel getal [0..1]
+| _classificatie op basis van technische mogelijkheden_
+| lokaal communicatieprofiel
+| <<lokaal-communicatieprofiel,Lokaal communicatieprofiel>> [0..1]
+| _wijze van gegevensuitwisseling tussen meetcomponenten binnen dezelfde locatie_
+| revisiejaar
+| geheel getal [0..1]
+| _jaar waarin de meter gereviseerd is voor hergebruik, zoals vermeld op het apparaat of geregistreerd in een daartoe bestemd systeem_
+
+Verplicht indien gereviseerd.
+| serienummer
+| tekst [1]
+| _unieke code die door de fabrikant aan een exemplaar uit een reeks producten gegeven wordt_
+| typeaanduiding
+| tekst [0..1]
+| _naam die door een fabrikant aan een reeks producten met vergelijkbare eigenschappen wordt gegeven_
+
+|===
+
+
+
+==== Relaties
+
+[cols="2,3",width="100%"]
+|===
+| Meetcomponent is ... | Omschrijving
+
+| beheerd door Marktpartijregistratie (Marktpartijenregister) [* → 0..1]
+| _identificeert de marktpartij (netbeheerder) die verantwoordelijk is voor het beheer, via diens registratie in marktcommunicatie_
+| communicatiemiddel voor Aansluiting (Aansluitingenregister) [* → *]
+| In een standaardsituatie met een elektriciteitsmeter, gasmeter en gateway, is de gateway het communicatiemiddel voor beide aansluitingen. In een situatie zonder gateway is de elektriciteitsmeter het communicatiemiddel voor beide aansluitingen.
+
+Deze relatie is veel-op-veel, bijvoorbeeld voor de situatie waarin er in één meterkast twee zelfstandig communicerende elektriciteitsmeters zijn en een gasmeter die wordt uitgelezen via een van de elektriciteitsmeters.
+
+|===
+
+
+
+
+
+
+[[meetgateway]]
+=== Meetgateway
+
+
+Specialisatie van <<meetcomponent,Meetcomponent>>
+
+
+_apparaat bedoeld om meters op afstand uitleesbaar te maken, zonder zelf energie-uitwisseling te meten_
+
+
+
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+
+
+==== Eigenschappen
+
+[cols="1,1,3",width="100%"]
+|===
+| Eigenschap | Waardespecificatie | Omschrijving
+
+| pass:[<span title="Maakt deel uit van de identificatie">🔑</span>&nbsp;]gatewaynummer
+| tekst [1]
+| _identificatie van de meetgateway, bestaande uit een combinatie van gatewaycode, serienummer en de laatste twee cijfers van het bouwjaar_
+
+|===
+
+
+
+==== Relaties
+
+[cols="2,3",width="100%"]
+|===
+| Meetgateway is ... | Omschrijving
+
+| ingedeeld naar Gatewaycodering (Meetcomponentstandaardenregister) [* → 1]
+| 
+
+|===
+
+
+
+
+
+
+[[meter]]
+=== Meter
+
+
+Specialisatie van <<meetcomponent,Meetcomponent>>
+
+
+_apparaat bedoeld om energie-uitwisseling te meten ten behoeve van de verrekening_ (zie https://wetten.overheid.nl/jci1.3:c:BWBR0050714&z=2025-02-22&g=2025-02-22[`energiewet:z=2025-02-22&g=2025-02-22`])
+
+Dit register ondersteunt geen controlemeters. Een controlemeter is een meter die naast een andere meter is geplaatst om daarvan de meterstanden op nauwkeurigheid te conroleren, vaak op verzoek van de aangeslotene.
+
+Zie ook https://wetten.overheid.nl/jci1.3:c:BWBR0037934&hoofdstuk=2&paragraaf=2.1&artikel=2.1.4&z=2025-01-01&g=2025-01-01[`iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.4&z=2025-01-01&g=2025-01-01`], https://www.netbeheernederland.nl/publicatie/reglement-meterparkbeheer-v62[`nbnlpub:reglement-meterparkbeheer-v62`]
+
+
+
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+            
+                
+                    
+                
+            
+        
+            
+                
+                    
+                
+            
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+
+
+==== Eigenschappen
+
+[cols="1,1,3",width="100%"]
+|===
+| Eigenschap | Waardespecificatie | Omschrijving
+
+| afkeurjaar
+| geheel getal [0..1]
+| _kalenderjaar waarin is vastgesteld dat de meter niet langer geschikt is voor gebruik_
+| correctiefactor voor indirecte meting
+| reëel getal [0..1]
+| _factor waarmee het getal van de telwerken vermenigvuldigd moet worden om de meetwaarde te corrigeren voor een meting via meettransformatoren_
+
+Alleen van toepassing op elektriciteitsmeters.
+
+Als de meter zelf corrigeert, is de waarde `1`.
+| deelpopulatiecodering
+| <<cijfer,Cijfer>> [0..1]
+| _aanvullende codering die, samen met de metercode, een subset van meters met gedeelde kenmerken aanduidt die binnen het meterpark apart worden behandeld_
+| pass:[<span title="Maakt deel uit van de identificatie">🔑</span>&nbsp;]meternummer
+| tekst [1]
+| _identificatie van de meter, bestaande uit een combinatie van metercode, serienummer en de laatste twee cijfers van het bouwjaar_
+
+In de praktijk wordt het serienummer soms ook het (korte) meternummer genoemd.
+
+Validatie: meternummer is een combinatie van metercode, serienummer en de laatste twee cijfers van het bouwjaar.
+| reden technisch niet op afstand uitleesbaar
+| <<reden-technisch-niet-op-afstand-uitleesbaar,Reden technisch niet op afstand uitleesbaar>> [0..1]
+| _verklaring voor het technisch niet op afstand uitleesbaar zijn van de meter_
+| technisch op afstand uitleesbaar
+| waar of onwaar [0..1]
+| _kenmerk dat weergeeft of de meter gelet op externe factoren van technische aard al dan niet op afstand uitleesbaar is_
+
+De uitleesbaarheid van de meter heeft invloed op marktprocessen zoals allocatie.
+| verzegeldatum
+| datum [0..1]
+| _datum waarop het apparaat voor het laatst metrologisch is verzegeld ter waarborging van de meetintegriteit_
+| zegelcategorie
+| <<zegelcategorie,Zegelcategorie>> [0..1]
+| _classificatie van de fabriekszegelstatus_
+
+|===
+
+
+
+==== Relaties
+
+[cols="2,3",width="100%"]
+|===
+| Meter is ... | Omschrijving
+
+| ingedeeld naar Metercodering (Meetcomponentstandaardenregister) [* → 1]
+| 
+| meetmiddel voor óf Allocatiepunt bij aansluiting (Aansluitingenregister){nbsp}óf GCvO-installatie (Installatieregister) [0..1 → 0..1]
+| Alhoewel een GCvO-installatie of allocatiepunt in principe bemeten kan worden door meerdere meters, maakt dit model de aanname dat dat niet het geval kan zijn bij kleinverbruikaansluitingen.
+| ondersteuning voor <<meetgateway,Meetgateway>> [0..1 → 0..1]
+| _voorziet de meetgateway van voeding en/of display_
+
+|===
+
+
+
+
+
+
+
+
+[[telwerk-met-cijferaanduiding]]
+=== Telwerk met cijferaanduiding
+
+
+
+NBility: https://nbility-model.github.io/NBility-business-capabilities-Archi/?view=id-8becf2d90261476faa9d53240e6cf2c8[Netcomponent]
+
+_onderdeel van een meter dat een hoeveelheid energie registreert, met een aanduiding die niet rechtstreeks verwijst naar de betekenis of functie van het telwerk_
+
+Niet van toepassing op meters die telwerken aanduiden met OBIS-codes.
+
+
+
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+
+
+==== Eigenschappen
+
+[cols="1,1,3",width="100%"]
+|===
+| Eigenschap | Waardespecificatie | Omschrijving
+
+| pass:[<span title="Maakt deel uit van de identificatie">🔑</span>&nbsp;]aanduiding
+| <<cijfer,Cijfer>> [1]
+| _zichtbaar cijfer of vaste afleespositie waarmee dit telwerk op de meter wordt aangeduid, zonder inherente betekenis over wat er wordt gemeten_
+
+|===
+
+
+
+==== Relaties
+
+[cols="2,3",width="100%"]
+|===
+| Telwerk met cijferaanduiding is ... | Omschrijving
+
+| pass:[<span title="Maakt deel uit van de identificatie">🔑</span>&nbsp;]deel van <<meter,Meter>> [* → 1]
+| 
+| gedefinieerd volgens Telwerkdefinitie (Meetcomponentstandaardenregister) [* → 1]
+| 
+
+|===
+
+
+
+
+
+
+
+== Waardesoorten en waardelijsten
+
+
+=== Waardesoorten
+
+[cols="1,3,1,1",width="100%"]
+|===
+| Waardesoort | Omschrijving | Gebaseerd op | Patroon
+
+| [[cijfer]]Cijfer
+| _enkel karakter dat een numeriek symbool weergeeft_
+| <<str,str>>
+| `^[0-9]$`
+
+|===
+
+
+
+
+
+=== Waardelijsten
+
+
+[[dossierreden]]
+==== Dossierreden
+
+
+
+[cols="1,5",width="100%"]
+|===
+| Waarde | Omschrijving
+
+| 1
+| _Geen contact met klant mogelijk_
+| 2
+| _Klant werkt niet mee_
+| 3
+| _Installatie moet worden vervangen/aangepast_
+| 4
+| _Sloop of verbouw aansluiting/pand_
+| 5
+| _Meter kan niet worden vervangen_
+| 6
+| _Administratieve onduidelijkheid_
+|===
+
+
+
+
+[[lokaal-communicatieprofiel]]
+==== Lokaal communicatieprofiel
+
+
+
+[cols="1,5",width="100%"]
+|===
+| Waarde | Omschrijving
+
+| ethernet
+| 
+| M-bus
+| 
+| Wi-SUN
+| 
+| wM-bus
+| 
+|===
+
+
+
+
+[[reden-technisch-niet-op-afstand-uitleesbaar]]
+==== Reden technisch niet op afstand uitleesbaar
+
+
+
+[cols="1,5",width="100%"]
+|===
+| Waarde | Omschrijving
+
+| 39.1
+| _geen fysieke toegang_
+| 39.2
+| _aansluiting langdurig spanningsloos of niet in gebruik_
+| 39.3
+| _uitlezing geblokkeerd i.v.m. incident meter of telecom_
+| 39.4
+| _geen telecomdekking door inpandige situatie_
+| 39.5
+| _geen telecomdekking aanwezig_
+| 39.6
+| _gasmeter hangt te ver van elektrameter of er hangt een losse gasmeter_
+|===
+
+
+
+
+[[zegelcategorie]]
+==== Zegelcategorie
+
+
+
+[cols="1,5",width="100%"]
+|===
+| Waarde | Omschrijving
+
+| gereviseerd
+| _de zegel is vervangen na een formele revisie_
+| oorspronkelijke fabriekszegel
+| _de zegel, inclusief als zegel bedoelde sealing, is sinds fabricage niet verbroken_
+| verbroken zegel
+| _de zegel is verbroken, zonder dat een revisie heeft plaatsgevonden_
+|===
+

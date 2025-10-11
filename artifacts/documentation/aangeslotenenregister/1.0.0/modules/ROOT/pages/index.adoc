@@ -1,0 +1,384 @@
+= Aangeslotenenregister
+
+:toc:
+:toclevels: 3
+:parent: Aangeslotenenregister[WARNING,caption="Let op"]
+--
+Deze website is in opbouw. Pagina's kunnen onvolledige of onjuiste informatie bevatten.
+--
+
+NBility: https://nbility-model.github.io/NBility-business-capabilities-Archi/?view=id-8becf2d90261476faa9d53240e6cf2c8[C.6.2.1. Aansluitingen/allocatiepunten beheren]
+
+_Het aangeslotenenregister bevat informatie over (natuurlijke en niet-natuurlijke) personen die de beschikking hebben gekregen over een elektriciteits- of gasaansluiting van een Nederlandse netbeheerder._
+
+De entiteiten in dit register hebben een tijdlijn registratie en effectuering. De tijdlijn effectuering is gelijk aan de tijdlijn registratie met een naar beneden afgerond tijdstip; voor elektriciteit naar 0:00 en voor gas naar 6:00 (zie artikel 2.1.8 van de Informatiecode elektriciteit en gas).
+
+image::aangeslotenenregister.drawio.svg[]
+
+.Legenda
+[%collapsible]
+====
+Komt nog!
+====
+
+.LinkML
+[%collapsible]
+====
+
+[source,yaml]
+....
+include::attachment$aangeslotenenregister.linkml.yml[]
+....
+
+====
+
+== Entiteiten
+
+
+
+
+[[aangeslotene]]
+=== Aangeslotene
+
+
+
+NBility: https://nbility-model.github.io/NBility-business-capabilities-Archi/?view=id-8becf2d90261476faa9d53240e6cf2c8[Klant]
+
+Exact overeenkomstig: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/aangeslotene[`nbnl:aangeslotene`]
+
+Omdat netbeheerders aangeslotenen niet altijd uniek kunnen identificeren, wordt in dit register informatie over de aangeslotene per aansluiting vastgelegd. Hierdoor kan één aangeslotene meerdere keren voorkomen in dit register.
+
+Persoonsgegevens zijn zo veel mogelijk overeenkomstig NEN 1888.
+
+Tijdlijnen: registratie, effectuering
+
+
+
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+
+
+==== Eigenschappen
+
+[cols="1,1,3",width="100%"]
+|===
+| Eigenschap | Waardespecificatie | Omschrijving
+
+| e-mailadres
+| tekst [0..1]
+| _uniek adres voor digitaal, elektronisch postverkeer_
+| geboortedatum
+| datum [0..1]
+| _datum van geboorte van een persoon_
+
+Validatie: leeg bij 'onderneming of overige zakelijke eindafnemer'.
+| naam
+| tekst [1]
+| _statutaire naam van de niet-natuurlijke persoon of achternaam zonder tussenvoegsel van de natuurlijke persoon_
+| roepnaam
+| tekst [0..1]
+| _naam waarmee iemand wil worden aangesproken_
+
+Validatie: leeg bij 'onderneming of overige zakelijke eindafnemer'.
+| telefoonnummer
+| tekst [0..1]
+| _uniek nummer dat toegekend wordt om een aansluiting op het publieke telefoonnet te identificeren, bestaande uit het plusteken, een landnummer, een netnummer en een abonneenummer_
+| type
+| <<type-aangeslotene,Type aangeslotene>> [0..1]
+| _categorie waartoe de aangeslotene behoort_
+| voorletters
+| tekst [0..1]
+| _verzameling letters die wordt gevormd door de eerste letter van alle in volgorde voorkomende voornamen_
+
+Validatie: leeg bij 'onderneming of overige zakelijke eindafnemer'.
+
+NEN 1888 onderscheidt voorletters-n van voorletters-1. Bijvoorbeeld Theo Adriaan wordt afgekort als Th.Adr. (voorletters-n) en als TA (voorletters-1, zonder puntjes). Dit register hanteert voorletters-1.
+| voorvoegsel
+| tekst [0..1]
+| _verzameling van een of meer voorzetsels en/of lidwoorden die aan het significante deel van de achternaam vooraf gaat en daarmee gezamelijk de achternaam vormt_
+
+Validatie: leeg bij 'onderneming of overige zakelijke eindafnemer'.
+
+|===
+
+
+
+==== Relaties
+
+[cols="2,3",width="100%"]
+|===
+| Aangeslotene is ... | Omschrijving
+
+| pass:[<span title="Maakt deel uit van de identificatie">🔑</span>&nbsp;]houder van Aansluiting (Aansluitingenregister) [0..1 → 1]
+| Een aangeslotene kan over meer dan één aansluiting beschikken. Dit register legt informatie over de aangeslotene per aansluiting vast.
+| rol van Onderneming of maatschappelijke activiteit (Handelsregister) [* → 0..1]
+| Validatie: afwezig bij huishoudelijk eindafnemer.
+
+Zie ook https://www.kvk.nl/over-het-handelsregister/de-nummers-van-het-handelsregister/[`kvk:over-het-handelsregister/de-nummers-van-het-handelsregister/`]
+
+|===
+
+
+
+
+
+
+
+
+[[correspondentieadres]]
+=== Correspondentieadres
+
+
+
+NBility: https://nbility-model.github.io/NBility-business-capabilities-Archi/?view=id-8becf2d90261476faa9d53240e6cf2c8[Klant]
+
+_postadres waar een aangeslotene zijn correspondentie wil ontvangen anders dan het aansluitadres_
+
+Adresgegevens zijn zo veel mogelijk overeenkomstig NEN 5825.
+
+Tijdlijnen: registratie, effectuering
+
+
+
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+    
+    
+    
+        
+    
+    
+    
+        
+    
+
+
+
+==== Eigenschappen
+
+[cols="1,1,3",width="100%"]
+|===
+| Eigenschap | Waardespecificatie | Omschrijving
+
+| huisnummer
+| geheel getal [1]
+| _aan een verblijfsobject, standplaats of ligplaats toegekend nummer, een antwoordnummer of een postbusnummer_
+| huisnummertoevoeging
+| tekst [0..1]
+| _aan een verblijfsobject, standplaats of ligplaats toegekende nadere toevoeging aan een huisnummer inclusief huisletter_
+| landcode
+| tekst [1]
+| _identificatie van een land met twee letters conform ISO 3166-1_
+| postcode
+| tekst [1]
+| _reeks tekens die in een postadres wordt opgenomen om het automatisch sorteren van de post gemakkelijker te maken_
+| straatnaam
+| tekst [1]
+| _naam om openbare ruimten zoals straten, lanen, wegen en stegen mee aan te duiden, of 'antwoordnummer' of 'postbus'_
+| woonplaatsnaam
+| tekst [1]
+| _aanduiding van een gebied met bewoning zoals een stad of dorp_
+
+|===
+
+
+
+==== Relaties
+
+[cols="2,3",width="100%"]
+|===
+| Correspondentieadres is ... | Omschrijving
+
+| pass:[<span title="Maakt deel uit van de identificatie">🔑</span>&nbsp;]van <<aangeslotene,Aangeslotene>> [0..1 → 1]
+| 
+
+|===
+
+
+
+
+
+
+
+== Waardesoorten en waardelijsten
+
+
+
+
+
+=== Waardelijsten
+
+
+[[type-aangeslotene]]
+==== Type aangeslotene
+
+
+
+[cols="1,5",width="100%"]
+|===
+| Waarde | Omschrijving
+
+| huishoudelijk eindafnemer
+| _eindafnemer die elektriciteit of gas koopt of wil kopen voor eigen huishoudelijk gebruik_ (zie https://wetten.overheid.nl/jci1.3:c:BWBR0050714&z=2025-02-22&g=2025-02-22[`energiewet:z=2025-02-22&g=2025-02-22`])
+| onderneming of overige zakelijke eindafnemer
+| _eindafnemer die elektriciteit of gas koopt of wil kopen anders dan voor eigen huishoudelijk gebruik_ (zie https://wetten.overheid.nl/jci1.3:c:BWBR0050714&z=2025-02-22&g=2025-02-22[`energiewet:z=2025-02-22&g=2025-02-22`])
+|===
+
