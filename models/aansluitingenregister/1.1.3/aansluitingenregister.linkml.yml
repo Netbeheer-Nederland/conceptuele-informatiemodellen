@@ -29,6 +29,7 @@ prefixes:
   bcg: https://wetten.overheid.nl/jci1.3:c:BWBR0037923&
   rakveg: https://wetten.overheid.nl/jci1.3:c:BWBR0030164&
   adamstelsel: https://www.amsterdam.nl/stelselpedia/
+  iso: https://www.iso.org/
   youtube: https://www.youtube.com/watch?v=
 default_prefix: https://netbeheernederland.nl/conceptueelinformatiemodel/aansluitingenregister/
 

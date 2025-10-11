@@ -103,13 +103,6 @@
 {% macro omschrijving(element) -%}
     {%- set parts = namespace(items=[]) -%}
 
-    {# NBility #}
-    {%- for a in element.annotations -%}
-        {%- if a == 'nbility' -%}
-            {%- set _ = parts.items.append('NBility: https://nbility-model.github.io/NBility-business-capabilities-Archi/?view=id-8becf2d90261476faa9d53240e6cf2c8[' ~ element.annotations[a].value ~ ']') -%}
-        {%- endif -%}
-    {%- endfor -%}
-
     {# description #}
     {%- if element.description -%}
         {# source #}
@@ -125,48 +118,44 @@
         {%- set _ = parts.items.append('_' ~ uri_link(element.meaning) ~ '_') -%}
     {%- endif -%}
 
-    {# exact_mappings  #}
+    {# exact_mappings #}
     {%- set exact_mappings = mappings_line(element, 'exact', 'Exact overeenkomstig') -%}
     {%- if exact_mappings -%}
         {%- set _ = parts.items.append(exact_mappings) -%}
     {%- endif -%}
 
-    {# close_mappings  #}
+    {# close_mappings #}
     {%- set close_mappings = mappings_line(element, 'close', 'Vrijwel overeenkomstig') -%}
     {%- if close_mappings -%}
         {%- set _ = parts.items.append(element, close_mappings) -%}
     {%- endif -%}
 
-    {# related_mappings  #}
+    {# related_mappings #}
     {%- set related_mappings = mappings_line(element, 'related', 'Gerelateerd') -%}
     {%- if related_mappings -%}
         {%- set _ = parts.items.append(related_mappings) -%}
     {%- endif -%}
 
-    {# narrow_mappings  #}
+    {# narrow_mappings #}
     {%- set narrow_mappings = mappings_line(element, 'narrow', 'Nauwer') -%}
     {%- if narrow_mappings -%}
         {%- set _ = parts.items.append(narrow_mappings) -%}
     {%- endif -%}
 
-    {# broad_mappings  #}
+    {# broad_mappings #}
     {%- set broad_mappings = mappings_line(element, 'broad', 'Breder') -%}
     {%- if broad_mappings -%}
         {%- set _ = parts.items.append(broad_mappings) -%}
     {%- endif -%}
 
+    {# specialization #}
+    {%- if element.is_a -%}
+        {%- set _ = parts.items.append('Specialisatie van ' ~ link(schemaview.get_class(element.is_a).name)) -%}
+    {%- endif -%}
+
     {# comments #}
     {%- if element.comments -%}
         {%- set _ = parts.items.append(element.comments | join('\n\n')) -%}
-    {%- endif -%}
-
-    {# see_also #}
-    {%- if element.see_also -%}
-        {%- set linked = [] -%}
-        {%- for s in element.see_also -%}
-            {%- set _ = linked.append(uri_link(s)) -%}
-        {%- endfor -%}
-        {%- set _ = parts.items.append('Zie ook ' ~ linked | join(', ')) -%}
     {%- endif -%}
 
     {# tijdlijnen #}
@@ -186,50 +175,40 @@
         {%- set _ = parts.items.append('Tijdlijnen: ' ~ tijdlijn_annotaties|join(', ')) -%}
     {%- endif -%}
 
+    {# NBility #}
+    {%- for a in element.annotations -%}
+        {%- if a == 'nbility' -%}
+            {%- set _ = parts.items.append('NBility: https://nbility-model.github.io/NBility-business-capabilities-Archi/?view=id-8becf2d90261476faa9d53240e6cf2c8[' ~ element.annotations[a].value ~ ']') -%}
+        {%- endif -%}
+    {%- endfor -%}
+
+    {# see_also #}
+    {%- if element.see_also -%}
+        {%- set linked = [] -%}
+        {%- for s in element.see_also -%}
+            {%- set _ = linked.append(uri_link(s)) -%}
+        {%- endfor -%}
+        {%- set _ = parts.items.append('.Zie ook\n[%collapsible]\n====\n* ' ~ linked | join('\n* ') ~ '\n====') -%}
+    {%- endif -%}
+
     {{parts.items | join('\n\n')}}
 {%- endmacro -%}
 
 = {{schema.title}}
 :table-caption!:
-
+:table-grid: rows
 :toc:
 :parent: {{schema.title}}
-
-[WARNING,caption="Let op"]
---
-Deze website is in opbouw. Pagina's kunnen onvolledige of onjuiste informatie bevatten.
---
 
 {{omschrijving(schema)}}
 
 image::{{schema.name}}.drawio.svg[]
-
-.Legenda
-[%collapsible]
-====
-Komt nog!
-====
-
-.LinkML
-[%collapsible]
-====
-
-[source,yaml]
-....
-include::attachment${{schema.name}}.linkml.yml[]
-....
-
-====
 
 {% for class in gen.all_class_objects() | sort(attribute=sort_by) %}
 {% if class.name != 'Any' and not class.annotations.external_registry %}
 
 {{anchor(class.name)}}
 == {{class.name}}
-
-{% if class.is_a %}
-Specialisatie van {{link(schemaview.get_class(class.is_a).name)}}
-{% endif %}
 
 {{omschrijving(class)}}
 
@@ -266,7 +245,7 @@ Specialisatie van {{link(schemaview.get_class(class.is_a).name)}}
 {% for slot in properties -%}
 | {{key_symbol(class, slot)}}{{privacy_symbol(slot)}}{{slot.name}}
 | {{compute_range(slot)}} [{{gen.cardinality(slot)}}]
-| {{omschrijving(slot)}}
+a| {{omschrijving(slot)}}
 {% endfor %}
 |===
 {% endif %}
@@ -279,7 +258,7 @@ Specialisatie van {{link(schemaview.get_class(class.is_a).name)}}
 
 {% for slot in relationships -%}
 | {{key_symbol(class, slot)}}{{slot.name}} {{compute_range(slot)}} [{% if slot.annotations.inverse_cardinality %}{{slot.annotations.inverse_cardinality.value}}{% endif %} → {{gen.cardinality(slot)}}]
-| {{omschrijving(slot)}}
+a| {{omschrijving(slot)}}
 {% endfor %}
 |===
 {% endif %}
@@ -298,7 +277,7 @@ Specialisatie van {{link(schemaview.get_class(class.is_a).name)}}
 
 {% endif -%}
 | {{anchor(t.name)}}{{t.name}}
-| {{omschrijving(t)}}
+a| {{omschrijving(t)}}
 | {% if t.typeof %}{{link(t.typeof)}}{% else %}{{range(t.base)}}{% endif %}
 | {% if t.pattern %}`{{t.pattern}}`{% endif %}
 {% if loop.last %}
@@ -325,7 +304,7 @@ Specialisatie van {{link(schemaview.get_class(class.is_a).name)}}
 {% if e.permissible_values -%}
 {% for pv in e.permissible_values.values() | sort(attribute='text') -%}
 | {{pv.text}}
-| {{omschrijving(pv)}}
+a| {{omschrijving(pv)}}
 {% endfor -%}
 {% else -%}
 | {{e.name}}
@@ -334,3 +313,14 @@ Specialisatie van {{link(schemaview.get_class(class.is_a).name)}}
 |===
 
 {% endfor %}
+
+.LinkML
+[%collapsible]
+====
+
+[source,yaml]
+....
+include::attachment${{schema.name}}.linkml.yml[]
+....
+
+====
