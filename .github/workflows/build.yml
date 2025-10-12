@@ -31,11 +31,10 @@ jobs:
         run: |
           git fetch
           git checkout docs-dev
-          git pull
 
           git config user.name "CICD"
           git config user.email "cicd@netbeheernederland.nl"
 
-          git add artifacts
+          git add -A artifacts
           git commit --allow-empty -m "Built artifacts"
           git push
