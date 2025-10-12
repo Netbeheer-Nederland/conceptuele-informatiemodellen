@@ -201,7 +201,6 @@
 = {{schema.title}}
 :table-caption!:
 :table-grid: rows
-:toc:
 :parent: {{schema.title}}
 
 {{omschrijving(schema)}}
@@ -273,6 +272,7 @@ a| {{omschrijving(slot)}}
 
 {% for t in gen.all_type_objects() | sort(attribute=sort_by) -%}
 {% if loop.first %}
+'''
 [discrete]
 == Waardesoorten
 
@@ -292,6 +292,7 @@ a| {{omschrijving(t)}}
 
 {% for e in gen.all_enum_objects() | sort(attribute=sort_by) %}
 {% if loop.first %}
+'''
 [discrete]
 == Waardelijsten
 {% endif %}
