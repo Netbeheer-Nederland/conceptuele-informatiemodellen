@@ -94,6 +94,3 @@ generate-documentation: clean
             echo; \
         done;
     done
-    cat artifacts/documentation/conceptuele-informatiemodellen/_/modules/ROOT/partials/nav.adoc
-
-
