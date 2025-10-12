@@ -29,12 +29,16 @@ jobs:
         run: just generate-documentation
       - name: Commit artifacts to `docs-dev` branch
         run: |
-          git fetch
-          git checkout docs-dev
+          git fetch origin docs-dev
+          git worktree add /tmp/docs-dev docs-dev
+
+          rsync -av --delete artifacts/ /tmp/docs-dev/
+
+          cd /tmp/docs-dev
 
           git config user.name "CICD"
           git config user.email "cicd@netbeheernederland.nl"
 
-          git add -A artifacts
-          git commit --allow-empty -m "Built artifacts"
-          git push
+          git add --all
+          git commit -m "Built artifacts" || echo "No changes to commit"
+          git push origin docs-dev
