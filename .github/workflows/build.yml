@@ -32,7 +32,7 @@ jobs:
           git fetch origin docs-dev
           git worktree add /tmp/docs-dev docs-dev
 
-          rsync -av --delete artifacts/ /tmp/docs-dev/
+          rsync --exclude='.git' -av --delete artifacts/ /tmp/docs-dev/
 
           cd /tmp/docs-dev
 
