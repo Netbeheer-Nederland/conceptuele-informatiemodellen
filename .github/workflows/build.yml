@@ -36,5 +36,5 @@ jobs:
           git config user.email "cicd@netbeheernederland.nl"
 
           git add artifacts
-          git commit -m "Built artifacts"
+          git commit --allow-empty -m "Built artifacts"
           git push
