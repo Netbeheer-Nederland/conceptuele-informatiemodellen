@@ -207,16 +207,7 @@
 {{omschrijving(schema)}}
 image::{{ schema.name }}.drawio.svg[id=conceptual-model]
 
-.LinkML
-[#linkml-schema%collapsible]
-====
-
-[source,yaml]
-....
-include::attachment${{schema.name}}.linkml.yml[]
-....
-
-====
+xref::attachment${{schema.name}}.linkml.yml[LinkML-broncode]
 
 {% for class in gen.all_class_objects() | sort(attribute=sort_by) %}
 {% if class.name != 'Any' and not class.annotations.external_registry %}
