@@ -31,6 +31,7 @@ jobs:
         run: |
           git fetch
           git checkout docs-dev
+          git pull
 
           git config user.name "CICD"
           git config user.email "cicd@netbeheernederland.nl"
