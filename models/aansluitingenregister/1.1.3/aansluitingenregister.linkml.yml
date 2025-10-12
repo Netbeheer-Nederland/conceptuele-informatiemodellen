@@ -96,16 +96,18 @@ classes:
         range: boolean
       # relaties
       beheerd door:
+        description: geeft aan welke netbeheerder de aansluiting beheert
         range: Marktpartijsubregistratie
         required: true
         multivalued: false
         annotations:
           inverse_cardinality: "*"
       deel van:
-        range: Netgebied
-        # conventie: multipliciteiten op relaties altijd expliciet
         comments:
         - "Validatie: deze relatie is verplicht als een van de allocatiepunten 'in bedrijf' is."
+        - "Validatie: aansluiting en netgebied hebben dezelfde beheerder."
+        range: Netgebied
+        # conventie: multipliciteiten op relaties altijd expliciet
         required: false
         multivalued: false
         annotations:
@@ -122,7 +124,7 @@ classes:
       tijdlijn_geldigheid: true
       tijdlijn_registratie: true
       tijdlijn_effectuering: true
-    description: plek waar zich het overdrachtspunt van een aansluiting of netkoppeling bevindt
+    description: plek waar zich het overdrachtspunt bevindt
     comments:
       - Adresgegevens zijn zo veel mogelijk overeenkomstig NEN 5825.
     see_also:
