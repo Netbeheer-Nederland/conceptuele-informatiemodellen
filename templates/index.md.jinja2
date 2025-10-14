@@ -1,6 +1,11 @@
-{%- macro uri_link(curie) -%}
-  {%- set curie_md = gen.uri_link(curie) -%}
-  {{curie_md.strip(")").replace("[", "`").replace("]", "`").split("(") | reverse | join("[") ~ "]"}}
+{%- macro uri_link(element) -%}
+    {%- if element is string -%}
+        {{schemaview.expand_curie(element)}}[{{element}}]
+    {%- elif element.name -%}
+        {{gen.uri(element)}}[{{element.name}}]
+    {%- else -%}
+        {{gen.uri(element)}}[{{gen.uri(element, false)}}]
+    {%- endif -%}
 {%- endmacro -%}
 
 {%- macro key_symbol(class, slot) -%}
@@ -32,8 +37,14 @@
     <<{{id_safe(name)}},{{name}}>>
 {%- endmacro -%}
 
-{%- macro anchor(name) -%}
-    [[{{id_safe(name)}}]]
+{%- macro anchor(element) -%}
+    {%- if (element.class_uri) -%}
+        [[{{element.class_uri}}]]
+    {%- elif (element.slot_uri) -%}
+        [[{{element.slot_uri}}]]
+    {%- else -%}
+        [[{{id_safe(element.name)}}]]
+    {%- endif -%}
 {%- endmacro -%}
 
 {%- macro range(name) -%}
@@ -57,7 +68,11 @@
     {%- elif name in schemaview.all_classes() -%}
         {%- set class = schemaview.get_class(name) -%}
         {%- if class.annotations.external_registry -%}
-            {{name}} ({{class.annotations.external_registry.value}})
+            {%- if class.class_uri -%}
+                {{uri_link(class)}} ({{class.annotations.external_registry.value}})
+            {%- else -%}
+                {{name}} ({{class.annotations.external_registry.value}})
+            {%- endif -%}
         {%- else -%}
             {{link(name)}}
         {%- endif -%}
@@ -205,14 +220,14 @@
 
 {{omschrijving(schema)}}
 
-image::{{ schema.name }}.drawio.svg[id=conceptual-model]
+image::{{schema.name}}.drawio.svg[id=conceptual-model]
 
 xref::attachment${{schema.name}}.linkml.yml[LinkML-broncode]
 
 {% for class in gen.all_class_objects() | sort(attribute=sort_by) %}
 {% if class.name != 'Any' and not class.annotations.external_registry %}
 
-{{anchor(class.name)}}
+{{anchor(class)}}
 == {{class.name}}
 
 {{omschrijving(class)}}
@@ -248,7 +263,7 @@ xref::attachment${{schema.name}}.linkml.yml[LinkML-broncode]
 | Eigenschap | Waardespecificatie | Omschrijving
 
 {% for slot in properties -%}
-| {{key_symbol(class, slot)}}{{privacy_symbol(slot)}}{{slot.name}}
+| {{anchor(slot)}}{{key_symbol(class, slot)}}{{privacy_symbol(slot)}}{{slot.name}}
 | {{compute_range(slot)}} [{{gen.cardinality(slot)}}]
 a| {{omschrijving(slot)}}
 {% endfor %}
@@ -262,7 +277,7 @@ a| {{omschrijving(slot)}}
 | {{class.name}} is ... | Omschrijving
 
 {% for slot in relationships -%}
-| {{key_symbol(class, slot)}}{{slot.name}} {{compute_range(slot)}} [{% if slot.annotations.inverse_cardinality %}{{slot.annotations.inverse_cardinality.value}}{% endif %} → {{gen.cardinality(slot)}}]
+| {{anchor(slot)}}{{key_symbol(class, slot)}}{{slot.name}} {{compute_range(slot)}} [{% if slot.annotations.inverse_cardinality %}{{slot.annotations.inverse_cardinality.value}}{% endif %} → {{gen.cardinality(slot)}}]
 a| {{omschrijving(slot)}}
 {% endfor %}
 |===
@@ -282,7 +297,7 @@ a| {{omschrijving(slot)}}
 | Waardesoort | Omschrijving | Gebaseerd op | Patroon
 
 {% endif -%}
-| {{anchor(t.name)}}{{t.name}}
+| {{anchor(t)}}{{t.name}}
 a| {{omschrijving(t)}}
 | {% if t.typeof %}{{link(t.typeof)}}{% else %}{{range(t.base)}}{% endif %}
 | {% if t.pattern %}`{{t.pattern}}`{% endif %}
@@ -298,7 +313,7 @@ a| {{omschrijving(t)}}
 == Waardelijsten
 {% endif %}
 
-{{anchor(e.name)}}
+{{anchor(e)}}
 [discrete]
 === {{e.name}}
 

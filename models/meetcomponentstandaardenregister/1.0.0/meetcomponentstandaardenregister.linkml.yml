@@ -1,4 +1,4 @@
-id: https://netbeheernederland.nl/conceptueelinformatiemodel/meetcomponentstandaardenregister
+id: https://modellen.netbeheernederland.nl/meetcomponentenregister
 name: meetcomponentstandaardenregister
 title: Meetcomponentstandaardenregister
 description: Register met vastgestelde standaarden, richtlijnen en definities voor de configuratie, interpretatie en toepassing van meters en meetgateways in Nederlandse energienetten.
@@ -6,14 +6,14 @@ comments:
   - Dit register kan eventueel nog worden uitgebreid met meetcomponentconfiguratiebeleid met betrekking tot bijvoorbeeld firmwareversies en mobiele-netwerktechnologieën.
 version: 1.0.0-draft
 prefixes:
+  this: https://modellen.netbeheernederland.nl/meetcomponentenregister#
   linkml: https://w3id.org/linkml/
-  meetcomponentenregister: https://netbeheernederland.nl/conceptueelinformatiemodel/meetcomponentenregister/
-  nbnl: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/
+  begrip: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/
   nbnlpub: https://www.netbeheernederland.nl/publicatie/
   wetten: "https://wetten.overheid.nl/jci1.3:c:"
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
   bce: https://wetten.overheid.nl/jci1.3:c:BWBR0037938&
-default_prefix: meetcomponentstandaardenregister
+default_prefix: this
 annotations:
   nbility: C.3.3.4. Beleid en standaardisatie van energienetten opstellen en onderhouden
 
@@ -53,7 +53,7 @@ classes:
         multivalued: true
       energiedrager:
         exact_mappings:
-          - nbnl:energiedrager
+          - begrip:energiedrager
         range: Energiedrager
         required: true
         multivalued: true
@@ -93,7 +93,7 @@ classes:
         range: integer
       energierichting:
         exact_mappings:
-          - nbnl:energierichting
+          - begrip:energierichting
         range: Energierichting
       meeteenheid:
         description: maat waarin natuurkundige grootheden numeriek kunnen worden uitgedrukt
@@ -125,9 +125,9 @@ enums:
   Energierichting:
     permissible_values:
       afname:
-        meaning: nbnl:afnmame
+        meaning: begrip:afnmame
       invoeding:
-        meaning: nbnl:invoeding
+        meaning: begrip:invoeding
   G-waarde:
     permissible_values:
       G2:

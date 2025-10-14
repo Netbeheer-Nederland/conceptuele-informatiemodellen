@@ -1,4 +1,4 @@
-id: https://netbeheernederland.nl/conceptueelinformatiemodel/meetcomponentenregister
+id: https://modellen.netbeheernederland.nl/meetcomponentenregister
 name: meetcomponentenregister
 title: Meetcomponentenregister
 description: Register met gegevens over meters en meetgateways die worden beheerd door Nederlandse netbeheerders.
@@ -10,12 +10,13 @@ comments:
 version: 1.0.0-draft
 prefixes:
   linkml: https://w3id.org/linkml/
-  nbnl: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/
+  begrip: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/
+  this: https://modellen.netbeheernederland.nl/meetcomponentenregister#
   nbnlpub: https://www.netbeheernederland.nl/publicatie/
   wetten: "https://wetten.overheid.nl/jci1.3:c:"
   energiewet: https://wetten.overheid.nl/jci1.3:c:BWBR0050714&
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
-default_prefix: https://netbeheernederland.nl/conceptueelinformatiemodel/meetcomponentenregister/
+default_prefix: this
 annotations:
   nbility: C.3.1.9. Netcomponent in levenscyclusbeheer opnemen
 
