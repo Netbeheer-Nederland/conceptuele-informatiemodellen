@@ -23,8 +23,8 @@
 {%- endmacro -%}
 
 {%- macro id_safe(v) -%}
-    {%- set allowed = 'abcdefghijklmnopqrstuvwxyz0123456789-' -%}
-    {%- for c in v|lower -%}
+    {%- set allowed = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-' -%}
+    {%- for c in v -%}
         {%- if c in allowed -%}
             {{c}}
         {%- elif c == ' ' -%}
@@ -39,9 +39,9 @@
 
 {%- macro anchor(element) -%}
     {%- if (element.class_uri) -%}
-        [[{{element.class_uri}}]]
+        [[{{element.class_uri|replace('this:', '')}}]]
     {%- elif (element.slot_uri) -%}
-        [[{{element.slot_uri}}]]
+        [[{{element.slot_uri|replace('this:', '')}}]]
     {%- else -%}
         [[{{id_safe(element.name)}}]]
     {%- endif -%}
@@ -68,13 +68,9 @@
     {%- elif name in schemaview.all_classes() -%}
         {%- set class = schemaview.get_class(name) -%}
         {%- if class.annotations.external_registry -%}
-            {%- if class.class_uri -%}
-                {{uri_link(class)}} ({{class.annotations.external_registry.value}})
-            {%- else -%}
-                {{name}} ({{class.annotations.external_registry.value}})
-            {%- endif -%}
+            {{uri_link(class)}} ({{class.annotations.external_registry.value}})
         {%- else -%}
-            {{link(name)}}
+            {{uri_link(class)}}
         {%- endif -%}
     {%- else -%}
         {{link(name)}}
@@ -169,7 +165,7 @@
 
     {# specialization #}
     {%- if element.is_a -%}
-        {%- set _ = parts.items.append('Specialisatie van ' ~ link(schemaview.get_class(element.is_a).name)) -%}
+        {%- set _ = parts.items.append('Specialisatie van ' ~ uri_link(schemaview.get_class(element.is_a))) -%}
     {%- endif -%}
 
     {# comments #}
