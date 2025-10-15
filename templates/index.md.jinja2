@@ -23,11 +23,12 @@
 {%- endmacro -%}
 
 {%- macro id_safe(v) -%}
-    {%- set allowed = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-' -%}
+    {%- set allowed = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_:.' -%}
+        local: {# prefix moet botsingen met URI-gebaseerde HTML-ankers voorkomen #}
     {%- for c in v -%}
         {%- if c in allowed -%}
             {{c}}
-        {%- elif c == ' ' -%}
+        {%- else -%}
             -
         {%- endif -%}
     {%- endfor -%}
