@@ -72,14 +72,14 @@ classes:
         slot_uri: this:Aansluiting.energiedrager
     attributes:
       gecontracteerde transportcapaciteit:
-        slot_uri: this.Aansluiting.gecontracteerde-transportcapaciteit
+        slot_uri: this:Aansluiting.gecontracteerde-transportcapaciteit
         exact_mappings:
           - begrip:gecontracteerde-transportcapaciteit
         see_also:
           - tce:hoofdstuk=3&paragraaf=3.7&artikel=3.7.4&z=2022-05-18&g=2022-05-18
           - tcg:hoofdstuk=2&paragraaf=2.6&artikel=2.33&z=2023-05-02&g=2023-05-02
       grootte:
-        slot_uri: this.Aansluiting.grootte
+        slot_uri: this:Aansluiting.grootte
         description: aanduiding van het formaat van de aansluiting op basis van de gewenste aansluitcapaciteiten van de overdrachtspunten
         comments:
           - De historische aanduiding 'artikel-1-lid-2-of-3-aansluiting' is nu afleidbaar uit de combinatie van 'grootte' en 'marktsegment'.
@@ -88,7 +88,7 @@ classes:
         range: Groot of klein
         required: true
       marktsegment:
-        slot_uri: this.Aansluiting.marktsegment
+        slot_uri: this:Aansluiting.marktsegment
         description: aanduiding van de categorie waartoe de aansluiting behoort, te weten kleinverbruikaansluiting of grootverbruikaansluiting
         see_also:
           - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.3&z=2022-05-18&g=2022-05-18
@@ -98,7 +98,7 @@ classes:
         range: Marktsegment
         required: true
       uitsluitend elektriciteitsproductie-eenheden:
-        slot_uri: this.Aansluiting.uitsluitend-elektriciteitsproductie-eenheden
+        slot_uri: this:Aansluiting.uitsluitend-elektriciteitsproductie-eenheden
         description: geeft aan of achter een aansluiting zich uitsluitend elektriciteitsproductie-eenheden bevinden en geen ander verbruik dan het eigen verbruik van de desbetreffende elektriciteitsproductie-eenheden
         see_also:
           - tce:hoofdstuk=3&paragraaf=3.7&artikel=3.7.13.b&z=2022-05-18&g=2022-05-18
@@ -107,14 +107,14 @@ classes:
         range: boolean
         required: true
       weekmax:
-        slot_uri: this.Aansluiting.weekmax
+        slot_uri: this:Aansluiting.weekmax
         description: geeft aan of de kWmax per week gemeten moet worden
         see_also:
           - tce:hoofdstuk=3&paragraaf=3.7&artikel=3.7.5a&z=2022-05-18&g=2022-05-18
         range: boolean
       # relaties
       beheerd door:
-        slot_uri: this.Aansluiting.beheerd-door
+        slot_uri: this:Aansluiting.beheerd-door
         description: geeft aan welke netbeheerder de aansluiting beheert
         range: Marktpartijsubregistratie
         required: true
@@ -122,7 +122,7 @@ classes:
         annotations:
           inverse_cardinality: "*"
       deel van:
-        slot_uri: this.Aansluiting.deel-van
+        slot_uri: this:Aansluiting.deel-van
         comments:
         - "Validatie: deze relatie is verplicht als een van de allocatiepunten 'in bedrijf' is."
         - "Validatie: aansluiting en netgebied hebben dezelfde beheerder."
@@ -743,14 +743,15 @@ classes:
         unit:
           ucum_code: A
   Primair deel gas- of waterstofmeetinrichting:
-    class_uri: this:Primair-deel-gas--of-waterstofmeetinrichting
+    # conventie: niet per se dubbele -- in uri
+    class_uri: this:Primair-deel-gas-of-waterstofmeetinrichting
     is_a: Primair deel meetinrichting
     description: hulpmiddelen bij een gasaansluiting waarop het secundaire deel van de meetinrichting is aangesloten
     see_also:
       - iceg:hoofdstuk=2&paragraaf=2.11&artikel=2.11.5&z=2023-06-28&g=2023-06-28
     attributes:
       flensafstand:
-        slot_uri: this:Primair-deel-gas--of-waterstofmeetinrichting.flensafstand
+        slot_uri: this:Primair-deel-gas-of-waterstofmeetinrichting.flensafstand
         description: afstand tussen de flenzen waartussen het secundaire gedeelte van de meetinrichting kan worden geplaatst
         comments:
           - Ook bekend als inbouwmaat.
@@ -758,25 +759,25 @@ classes:
         unit:
           ucum_code: mm
       flensdrukklasse:
-        slot_uri: this:Primair-deel-gas--of-waterstofmeetinrichting.flensdrukklasse
+        slot_uri: this:Primair-deel-gas-of-waterstofmeetinrichting.flensdrukklasse
         description: maximale druk die de flenzen, waartussen het secundaire gedeelte van de meetinrichting geplaatst kan worden, kunnen weerstaan bij een bepaalde temperatuur
         range: Flensdrukklasse
       flensmaat:
-        slot_uri: this:Primair-deel-gas--of-waterstofmeetinrichting.flensmaat
+        slot_uri: this:Primair-deel-gas-of-waterstofmeetinrichting.flensmaat
         description: aanduiding van de ruimtelijke maten van de flenzen waartussen het secundaire gedeelte van de meetinrichting kan worden geplaatst
         range: Flensmaat
       geregelde meetdruk:
-        slot_uri: this:Primair-deel-gas--of-waterstofmeetinrichting.geregelde-meetdruk
+        slot_uri: this:Primair-deel-gas-of-waterstofmeetinrichting.geregelde-meetdruk
         description: spanning van het gas of de waterstof, indien deze speciaal ten behoeve van het secundaire gedeelte van de meetinrichting wordt geregeld
         range: float
         unit:
           ucum_code: mbar
       meetdruk geregeld:
-        slot_uri: this:Primair-deel-gas--of-waterstofmeetinrichting.meetdruk-geregeld
+        slot_uri: this:Primair-deel-gas-of-waterstofmeetinrichting.meetdruk-geregeld
         description: aanduiding of de druk speciaal ten behoeve van het secundair gedeelte van de meetinrichting wordt geregeld
         range: boolean
       schroefdraaddiameter:
-        slot_uri: this:Primair-deel-gas--of-waterstofmeetinrichting.schroefdraaddiameter
+        slot_uri: this:Primair-deel-gas-of-waterstofmeetinrichting.schroefdraaddiameter
         description: doorsnede van het schroefdraad waarop het secundaire gedeelte van de meetinrichting kan worden geplaatst
         comments:
           - Het secundaire gedeelte van de meetinrichting wordt óf op een schroefdraad óf tussen twee flenzen geplaatst.
