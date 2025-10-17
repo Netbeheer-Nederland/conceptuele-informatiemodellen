@@ -1,10 +1,17 @@
-{%- macro uri_link(element) -%}
-    {%- if element is string -%}
-        {{schemaview.expand_curie(element)}}[{{element}}]
-    {%- elif element.name -%}
-        {{gen.uri(element)}}[{{element.name}}]
+{%- macro link(name, local=false) -%}
+    {%- if local -%}
+        {%- set element = schemaview.get_element(name) -%}
+        {%- if element.class_uri -%}
+            {%- if element.annotations.external_registry -%}
+                {{gen.uri(element)}}[{{name}}] ({{element.annotations.external_registry.value}})
+            {%- else -%}
+                <<{{element.class_uri|replace(schema.default_prefix ~ ':', '')}},{{name}}>>
+            {%- endif -%}
+        {%- else -%}
+            <<{{id_safe(name)}},{{name}}>>
+        {%- endif -%}
     {%- else -%}
-        {{gen.uri(element)}}[{{gen.uri(element, false)}}]
+        {{schemaview.expand_curie(name)}}[{{name}}]
     {%- endif -%}
 {%- endmacro -%}
 
@@ -34,15 +41,9 @@
     {%- endfor -%}
 {%- endmacro -%}
 
-{%- macro link(name) -%}
-    <<{{id_safe(name)}},{{name}}>>
-{%- endmacro -%}
-
 {%- macro anchor(element) -%}
-    {%- if (element.class_uri) -%}
-        [[{{element.class_uri|replace('this:', '')}}]]
-    {%- elif (element.slot_uri) -%}
-        [[{{element.slot_uri|replace('this:', '')}}]]
+    {%- if element.class_uri -%}
+        [[{{element.class_uri|replace(schema.default_prefix ~ ':', '')}}]]
     {%- else -%}
         [[{{id_safe(element.name)}}]]
     {%- endif -%}
@@ -66,15 +67,8 @@
         'ncname': 'prefixnaam' } -%}
     {%- if name in base_types -%}
         {{base_types[name]}}
-    {%- elif name in schemaview.all_classes() -%}
-        {%- set class = schemaview.get_class(name) -%}
-        {%- if class.annotations.external_registry -%}
-            {{uri_link(class)}} ({{class.annotations.external_registry.value}})
-        {%- else -%}
-            {{link(class.class_uri|replace('this:'))}}
-        {%- endif -%}
     {%- else -%}
-        {{link(name)}}
+        {{link(name, true)}}
     {%- endif -%}
 {%- endmacro -%}
 
@@ -106,7 +100,7 @@
     {%- if mappings -%}
         {%- set linked = [] -%}
         {%- for m in mappings -%}
-            {%- set _ = linked.append(uri_link(m)) -%}
+            {%- set _ = linked.append(link(m)) -%}
         {%- endfor -%}
         {%- if type == 'exact' -%}
             {{- '_' ~ linked | join(', ') ~ '_' -}}
@@ -123,7 +117,7 @@
     {%- if element.description -%}
         {# source #}
         {%- if element.source -%}
-            {%- set _ = parts.items.append('_' ~ element.description ~ '_' ~ ' (zie ' ~ uri_link(element.source) ~ ')') -%}
+            {%- set _ = parts.items.append('_' ~ element.description ~ '_' ~ ' (zie ' ~ link(element.source) ~ ')') -%}
         {%- else -%}
             {%- set _ = parts.items.append('_' ~ element.description ~ '_') -%}
         {%- endif -%}
@@ -131,7 +125,7 @@
 
     {# meaning #}
     {%- if element.meaning -%}
-        {%- set _ = parts.items.append('_' ~ uri_link(element.meaning) ~ '_') -%}
+        {%- set _ = parts.items.append('_' ~ link(element.meaning) ~ '_') -%}
     {%- endif -%}
 
     {# exact_mappings #}
@@ -166,7 +160,7 @@
 
     {# specialization #}
     {%- if element.is_a -%}
-        {%- set _ = parts.items.append('Specialisatie van ' ~ uri_link(schemaview.get_class(element.is_a))) -%}
+        {%- set _ = parts.items.append('Specialisatie van ' ~ link(element.is_a, true)) -%}
     {%- endif -%}
 
     {# comments #}
@@ -202,7 +196,7 @@
     {%- if element.see_also -%}
         {%- set linked = [] -%}
         {%- for s in element.see_also -%}
-            {%- set _ = linked.append(uri_link(s)) -%}
+            {%- set _ = linked.append(link(s)) -%}
         {%- endfor -%}
         {%- set _ = parts.items.append('.Zie ook\n[%collapsible]\n====\n* ' ~ linked | join('\n* ') ~ '\n====') -%}
     {%- endif -%}
@@ -260,7 +254,7 @@ xref::attachment${{schema.name}}.linkml.yml[LinkML-broncode]
 | Eigenschap | Waardespecificatie | Omschrijving
 
 {% for slot in properties -%}
-| {{anchor(slot)}}{{key_symbol(class, slot)}}{{privacy_symbol(slot)}}{{slot.name}}
+| {{key_symbol(class, slot)}}{{privacy_symbol(slot)}}{{slot.name}}
 | {{compute_range(slot)}} [{{gen.cardinality(slot)}}]
 a| {{omschrijving(slot)}}
 {% endfor %}
@@ -274,7 +268,7 @@ a| {{omschrijving(slot)}}
 | {{class.name}} is ... | Omschrijving
 
 {% for slot in relationships -%}
-| {{anchor(slot)}}{{key_symbol(class, slot)}}{{slot.name}} {{compute_range(slot)}} [{% if slot.annotations.inverse_cardinality %}{{slot.annotations.inverse_cardinality.value}}{% endif %} → {{gen.cardinality(slot)}}]
+| {{key_symbol(class, slot)}}{{slot.name}} {{compute_range(slot)}} [{% if slot.annotations.inverse_cardinality %}{{slot.annotations.inverse_cardinality.value}}{% endif %} → {{gen.cardinality(slot)}}]
 a| {{omschrijving(slot)}}
 {% endfor %}
 |===
@@ -296,7 +290,7 @@ a| {{omschrijving(slot)}}
 {% endif -%}
 | {{anchor(t)}}{{t.name}}
 a| {{omschrijving(t)}}
-| {% if t.typeof %}{{link(t.typeof)}}{% else %}{{range(t.base)}}{% endif %}
+| {% if t.typeof %}{{link(t.typeof, true)}}{% else %}{{range(t.base)}}{% endif %}
 | {% if t.pattern %}`{{t.pattern}}`{% endif %}
 {% if loop.last %}
 |===

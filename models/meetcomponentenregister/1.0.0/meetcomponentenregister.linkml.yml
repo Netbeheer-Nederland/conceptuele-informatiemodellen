@@ -20,6 +20,7 @@ prefixes:
   wetten: "https://wetten.overheid.nl/jci1.3:c:"
   energiewet: https://wetten.overheid.nl/jci1.3:c:BWBR0050714&
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
+default_prefix: this
 annotations:
   nbility: C.3.1.9. Netcomponent in levenscyclusbeheer opnemen
 
@@ -33,12 +34,10 @@ classes:
       nbility: Netcomponent
     attributes:
       identificatie:
-        slot_uri: this:Gatewayadapter.identificatie
         description: unieke aanduiding waarmee een instantie van een object binnen een gegeven context ondubbelzinnig herkenbaar is
         required: true
       # relaties:
       ondersteuning voor:
-        slot_uri: this:Gatewayadapter.ondersteuning-voor
         description: voorziet de meetgateway van voeding en/of display
         range: Meetgateway
         required: true
@@ -58,49 +57,39 @@ classes:
       tijdlijn_registratie: true
     attributes:
       afkeurjaar:
-        slot_uri: this:Meetcomponent.afkeurjaar
         description: kalenderjaar waarin is vastgesteld dat het apparaat ongeschikt is voor verder gebruik
         range: integer
       bouwjaar:
-        slot_uri: this:Meetcomponent.bouwjaar
         description: jaar waarin de meter voor het eerst is geproduceerd, zoals vermeld op het apparaat of geregistreerd in een daartoe bestemd systeem
         range: integer
         comments:
           - Verplicht indien niet gereviseerd.
       dossierreden:
-        slot_uri: this:Meetcomponent.dossierreden
         description: oorzaak van het niet tijdig verwijderen van een afgekeurde meter
         range: Dossierreden
       generatie:
-        slot_uri: this:Meetcomponent.generatie
         description: classificatie op basis van technische mogelijkheden
         range: integer
       lokaal communicatieprofiel:
-        slot_uri: this:Meetcomponent.lokaal-communicatieprofiel
         description: wijze van gegevensuitwisseling tussen meetcomponenten binnen dezelfde locatie
         range: Lokaal communicatieprofiel
       serienummer:
-        slot_uri: this:Meetcomponent.serienummer
         description: unieke code die door de fabrikant aan een exemplaar uit een reeks producten gegeven wordt
         required: true
       revisiejaar:
-        slot_uri: this:Meetcomponent.revisiejaar
         description: jaar waarin de meter gereviseerd is voor hergebruik, zoals vermeld op het apparaat of geregistreerd in een daartoe bestemd systeem
         range: integer
         comments:
           - Verplicht indien gereviseerd.
       typeaanduiding:
-        slot_uri: this:Meetcomponent.typeaanduiding
         description: naam die door een fabrikant aan een reeks producten met vergelijkbare eigenschappen wordt gegeven
       # relaties:
       beheerd door:
-        slot_uri: this:Meetcomponent.beheerd-door
         description: identificeert de marktpartij (netbeheerder) die verantwoordelijk is voor het beheer, via diens registratie in marktcommunicatie
         range: Marktpartijregistratie
         annotations:
           inverse_cardinality: "*"
       communicatiemiddel voor:
-        slot_uri: this:Meetcomponent.communicatiemiddel-voor
         comments:
           - In een standaardsituatie met een elektriciteitsmeter, gasmeter en gateway, is de gateway het communicatiemiddel voor beide aansluitingen. In een situatie zonder gateway is de elektriciteitsmeter het communicatiemiddel voor beide aansluitingen.
           - Deze relatie is veel-op-veel, bijvoorbeeld voor de situatie waarin er in één meterkast twee zelfstandig communicerende elektriciteitsmeters zijn en een gasmeter die wordt uitgelezen via een van de elektriciteitsmeters.
@@ -115,12 +104,10 @@ classes:
     is_a: Meetcomponent
     attributes:
       gatewaynummer:
-        slot_uri: this:Meetgateway.gatewaynummer
         description: identificatie van de meetgateway, bestaande uit een combinatie van gatewaycode, serienummer en de laatste twee cijfers van het bouwjaar
         required: true
       # relaties:
       ingedeeld naar:
-        slot_uri: this:Meetgateway.ingedeeld-naar
         range: Gatewaycodering
         required: true
         multivalued: false
@@ -142,56 +129,46 @@ classes:
       - nbnlpub:reglement-meterparkbeheer-v62
     attributes:
       afkeurjaar:
-        slot_uri: this:Meter.afkeurjaar
         description: kalenderjaar waarin is vastgesteld dat de meter niet langer geschikt is voor gebruik
         range: integer
       correctiefactor voor indirecte meting:
-        slot_uri: this:Meter.correctiefactor-voor-indirecte-meting
         description: factor waarmee het getal van de telwerken vermenigvuldigd moet worden om de meetwaarde te corrigeren voor een meting via meettransformatoren
         comments:
           - Alleen van toepassing op elektriciteitsmeters.
           - Als de meter zelf corrigeert, is de waarde `1`.
         range: float
       deelpopulatiecodering:
-        slot_uri: this:Meter.deelpopulatiecodering
         description: aanvullende codering die, samen met de metercode, een subset van meters met gedeelde kenmerken aanduidt die binnen het meterpark apart worden behandeld
         range: Cijfer
       # vraag: (hoe) annoteren dat meternummer afleidbaar is?
       meternummer:
-        slot_uri: this:Meter.meternummer
         description: identificatie van de meter, bestaande uit een combinatie van metercode, serienummer en de laatste twee cijfers van het bouwjaar
         comments:
           - In de praktijk wordt het serienummer soms ook het (korte) meternummer genoemd.
           - "Validatie: meternummer is een combinatie van metercode, serienummer en de laatste twee cijfers van het bouwjaar."
         required: true
       reden technisch niet op afstand uitleesbaar:
-        slot_uri: this:Meter.reden-technisch-niet-op-afstand-uitleesbaar
         description: verklaring voor het technisch niet op afstand uitleesbaar zijn van de meter
         range: Reden technisch niet op afstand uitleesbaar
       technisch op afstand uitleesbaar:
-        slot_uri: this:Meter.technisch-op-afstand-uitleesbaar
         description: kenmerk dat weergeeft of de meter gelet op externe factoren van technische aard al dan niet op afstand uitleesbaar is
         comments:
           - De uitleesbaarheid van de meter heeft invloed op marktprocessen zoals allocatie.
         range: boolean
       verzegeldatum:
-        slot_uri: this:Meter.verzegeldatum
         description: datum waarop het apparaat voor het laatst metrologisch is verzegeld ter waarborging van de meetintegriteit
         range: date
       zegelcategorie:
-        slot_uri: this:Meter.zegelcategorie
         description: classificatie van de fabriekszegelstatus
         range: Zegelcategorie
       # relaties:
       ingedeeld naar:
-        slot_uri: this:Meter.ingedeeld-naar
         range: Metercodering
         required: true
         multivalued: false
         annotations:
           inverse_cardinality: "*"
       meetmiddel voor:
-        slot_uri: this:Meter.meetmiddel-voor
         range: Any
         exactly_one_of:
           - range: Allocatiepunt bij aansluiting
@@ -203,7 +180,6 @@ classes:
         annotations:
           inverse_cardinality: 0..1
       ondersteuning voor:
-        slot_uri: this:Meter.ondersteuning-voor
         description: voorziet de meetgateway van voeding en/of display
         range: Meetgateway
         required: false
@@ -223,20 +199,17 @@ classes:
       - Niet van toepassing op meters die telwerken aanduiden met OBIS-codes.
     attributes:
       aanduiding:
-        slot_uri: this:Telwerk-met-cijferaanduiding.aanduiding
         description: zichtbaar cijfer of vaste afleespositie waarmee dit telwerk op de meter wordt aangeduid, zonder inherente betekenis over wat er wordt gemeten
         required: true
         range: Cijfer
       # relaties:
       deel van:
-        slot_uri: this:Telwerk-met-cijferaanduiding.deel-van
         range: Meter
         required: true
         multivalued: false
         annotations:
           inverse_cardinality: "*"
       gedefinieerd volgens:
-        slot_uri: this:Telwerk-met-cijferaanduiding.gedefinieerd-volgens
         range: Telwerkdefinitie
         required: true
         multivalued: false
@@ -247,7 +220,6 @@ classes:
         unique_key_slots:
         - aanduiding
         - deel van
-
   # extern:
   Aansluiting:
     class_uri: aansluitingenregister:Aansluiting

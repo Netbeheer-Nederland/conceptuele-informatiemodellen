@@ -13,6 +13,7 @@ prefixes:
   wetten: "https://wetten.overheid.nl/jci1.3:c:"
   iceg: https://wetten.overheid.nl/jci1.3:c:BWBR0037934&
   bce: https://wetten.overheid.nl/jci1.3:c:BWBR0037938&
+default_prefix: this
 annotations:
   nbility: C.3.3.4. Beleid en standaardisatie van energienetten opstellen en onderhouden
 
@@ -24,16 +25,11 @@ classes:
       nbility: Technische bedrijfsstandaard
     slots:
       - fabrikant
-    slot_usage:
-      fabrikant:
-        slot_uri: this:Gatewaycodering.fabrikant
     attributes:
       gatewaycode:
-        slot_uri: this:Gatewaycodering.gatewaycode
         description: unieke code die een type meetgateway identificeert op basis van gedeelde technische eigenschappen en fabrikant
         required: true
       mobiele-netwerktechnologie:
-        slot_uri: this:Gatewaycodering.mobiele-netwerktechnologie
         description: technologie voor draadloze communicatie via publieke of private mobiele netwerken volgens gestandaardiseerde telecomprotocollen
         range: Mobiele-netwerktechnologie
         required: true
@@ -52,43 +48,33 @@ classes:
       - iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.4&z=2025-01-01&g=2025-01-01
     slots:
       - fabrikant
-    slot_usage:
-      fabrikant:
-        slot_uri: this:Metercodering.fabrikant
     attributes:
       aantal fasen:
-        slot_uri: this:Metercodering.aantal-fasen
         description: hoeveelheid elektrische fasen waarvoor de meter technisch geschikt is
         range: Aantal fasen
         multivalued: true
       energiedrager:
-        slot_uri: this:Metercodering.energiedrager
         exact_mappings:
           - begrip:energiedrager
         range: Energiedrager
         required: true
         multivalued: true
       G-waarde:
-        slot_uri: this:Metercodering.G-waarde
         description: classificatie van een gasmeter op basis van de nominale debietcapaciteit, uitgedrukt als G-waarde conform internationale normen (zoals EN 1359).
         range: G-waarde
         multivalued: true
       luchtdrukgecorrigeerd:
-        slot_uri: this:Metercodering.luchtdrukgecorrigeerd
         description: aanduiding of de metingen door de meter worden gecorrigeerd voor luchtdruk
         range: boolean
         required: true
       metercode:
-        slot_uri: this:Metercodering.metercode
         description: unieke code die een type energiehoeveelheidsmeter aanduidt op basis van metrologische eigenschappen en fabrikant
         required: true
       op afstand uitleesbaar:
-        slot_uri: this:Metercodering.op-afstand-uitleesbaar
         description: kenmerk dat weergeeft of de meter voldoet aan het Besluit op afstand uitleesbare meetinrichtingen
         range: boolean
         required: true
       temperatuurgecorrigeerd:
-        slot_uri: this:Metercodering.temperatuurgecorrigeerd
         description: aanduiding of de metingen door de meter worden gecorrigeerd voor temperatuur
         range: boolean
         required: true
@@ -106,23 +92,18 @@ classes:
       - bce:z=2025-05-08&g=2025-05-08
     attributes:
       aantal posities voor de komma:
-        slot_uri: this:Telwerkdefinitie.aantal-posities-voor-de-komma
         description: maximaal aantal posities in het decimale talstelsel dat het telwerk kan bevatten
         range: integer
       energierichting:
-        slot_uri: this:Telwerkdefinitie.energierichting
         exact_mappings:
           - begrip:energierichting
         range: Energierichting
       meeteenheid:
-        slot_uri: this:Telwerkdefinitie.meeteenheid
         description: maat waarin natuurkundige grootheden numeriek kunnen worden uitgedrukt
         range: Meeteenheid
       OBIS-code:
-        slot_uri: this:Telwerkdefinitie.OBIS-code
         description: gestandaardiseerde aanduiding van telwerkbetekenis conform IEC 62056
       tariefzone:
-        slot_uri: this:Telwerkdefinitie.tariefzone
         description: aanduiding die aangeeft tijdens welke tariefperiode het telwerk de energie-uitwisseling registreert
         range: Tariefzone
     unique_keys:
