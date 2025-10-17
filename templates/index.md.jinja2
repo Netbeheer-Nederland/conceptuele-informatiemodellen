@@ -71,7 +71,7 @@
         {%- if class.annotations.external_registry -%}
             {{uri_link(class)}} ({{class.annotations.external_registry.value}})
         {%- else -%}
-            {{uri_link(class)}}
+            {{link(class.class_uri|replace('this:'))}}
         {%- endif -%}
     {%- else -%}
         {{link(name)}}

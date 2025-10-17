@@ -115,6 +115,24 @@ classes:
       kortsluitbijdrage:
         slot_uri: this:Elektriciteitsinstallatie-eenheid.kortsluitbijdrage
         description: hoeveelheid stroom die een elektrische installatie levert aan een kortsluiting in het elektriciteitsnet
+      maximumcapaciteit voor afname:
+        description: maximaal continu werkzame vermogen dat een elektricitsinstallatie-eenheid kan verbruiken, als gespecificeerd in de aansluitovereenkomst of overeengekomen tussen de netbeheerder en de eigenaar van de installatie
+        comments:
+          - "Validatieregel: verplicht bij opslag- en laadeenheden. Verplicht leeg bij productie-eenheden."
+        broad_mappings:
+          - begrip:maximumcapaciteit
+        range: float
+        unit:
+          ucum_code: kW
+      maximumcapaciteit voor invoeding:
+        description: maximaal continu werkzame vermogen dat een elektriciteitsinstallatie-eenheid kan produceren, verminderd met de vraag die uitsluitend verband houdt met het bedrijf van die eenheid zelf en die niet voor het energienet beschikbaar is, als gespecificeerd in de aansluitovereenkomst of overeengekomen tussen de netbeheerder en de eigenaar van de installatie
+        comments:
+          - "Validatieregel: verplicht bij productie- en opslageenheden."
+        broad_mappings:
+          - begrip:maximumcapaciteit
+        range: float
+        unit:
+          ucum_code: kW
       #relaties
       achter:
         slot_uri: this:Elektriciteitsinstallatie-eenheid.achter
@@ -127,6 +145,11 @@ classes:
       identificatie:
         unique_key_slots:
           - EAN-code
+  Elektriciteitslaadeenheid:
+    is_a: Elektriciteitsinstallatie-eenheid
+    description: ⚠ Het is nog niet duidelijk hoe laadpunten gegroepeerd moeten worden in laadeenheden. Dit heet namelijk direct effect op het type (A, B, C, D) en daarmee de aansluitvoorwaarden en verplichtingen die gelden voor de aangeslotene. Niet elke laadlocatie bestaat uit laadpalen, denk aan bogen, muren, etc.
+    broad_mappings:
+      - begrip:laadinstallatie
   Elektriciteitsopslageenheid:
     class_uri: this:Elektriciteitsopslageenheid
     is_a: Elektriciteitsinstallatie-eenheid
