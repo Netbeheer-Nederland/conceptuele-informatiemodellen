@@ -1,0 +1,338 @@
+= Meetcomponentstandaardenregister
+:table-caption!:
+:table-grid: rows
+:parent: Meetcomponentstandaardenregister
+
+_Register met vastgestelde standaarden, richtlijnen en definities voor de configuratie, interpretatie en toepassing van meters en meetgateways in Nederlandse energienetten._
+
+Dit register kan eventueel nog worden uitgebreid met meetcomponentconfiguratiebeleid met betrekking tot bijvoorbeeld firmwareversies en mobiele-netwerktechnologieën.
+
+NBility: https://nbility-model.github.io/NBility-business-capabilities-Archi/?view=id-8becf2d90261476faa9d53240e6cf2c8[C.3.3.4. Beleid en standaardisatie van energienetten opstellen en onderhouden]
+
+image::meetcomponentstandaardenregister.drawio.svg[id=conceptual-model]
+
+xref::attachment$meetcomponentstandaardenregister.linkml.yml[LinkML-broncode]
+
+
+
+
+[[Gatewaycodering]]
+== Gatewaycodering
+
+_categorisering van meetgateways met gelijke functionele en technische kenmerken, afkomstig van dezelfde fabrikant_
+
+Breder: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/technische-bedrijfsstandaard[begrip:technische-bedrijfsstandaard]
+
+
+
+
+
+
+.Eigenschappen
+[%autowidth.stretch]
+|===
+| Eigenschap | Waardespecificatie | Omschrijving
+
+| fabrikant
+| tekst [0..1]
+a| _bedrijf dat industrieel goederen vervaardigt_
+| pass:[<span title="Maakt deel uit van de identificatie">🔑</span>&nbsp;]gatewaycode
+| tekst [1]
+a| _unieke code die een type meetgateway identificeert op basis van gedeelde technische eigenschappen en fabrikant_
+| mobiele-netwerktechnologie
+| <<local:Mobiele-netwerktechnologie,Mobiele-netwerktechnologie>> [1..*]
+a| _technologie voor draadloze communicatie via publieke of private mobiele netwerken volgens gestandaardiseerde telecomprotocollen_
+
+|===
+
+
+
+
+
+
+
+
+[[Metercodering]]
+== Metercodering
+
+_categorisering van energiehoeveelheidsmeters met dezelfde (metrologische) kenmerken en van dezelfde fabrikant_ (zie https://www.netbeheernederland.nl/publicatie/reglement-meterparkbeheer-v62[nbnlpub:reglement-meterparkbeheer-v62])
+
+Breder: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/technische-bedrijfsstandaard[begrip:technische-bedrijfsstandaard]
+
+.Zie ook
+[%collapsible]
+====
+* https://wetten.overheid.nl/jci1.3:c:BWBR0037934&hoofdstuk=2&paragraaf=2.1&artikel=2.1.4&z=2025-01-01&g=2025-01-01[iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.4&z=2025-01-01&g=2025-01-01]
+====
+
+
+
+
+
+
+.Eigenschappen
+[%autowidth.stretch]
+|===
+| Eigenschap | Waardespecificatie | Omschrijving
+
+| aantal fasen
+| <<local:Aantal-fasen,Aantal fasen>> [*]
+a| _hoeveelheid elektrische fasen waarvoor de meter technisch geschikt is_
+| energiedrager
+| <<local:Energiedrager,Energiedrager>> [1..*]
+a| _https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/energiedrager[begrip:energiedrager]_
+| fabrikant
+| tekst [0..1]
+a| _bedrijf dat industrieel goederen vervaardigt_
+| G-waarde
+| <<local:G-waarde,G-waarde>> [*]
+a| _classificatie van een gasmeter op basis van de nominale debietcapaciteit, uitgedrukt als G-waarde conform internationale normen (zoals EN 1359)._
+| luchtdrukgecorrigeerd
+| waar of onwaar [1]
+a| _aanduiding of de metingen door de meter worden gecorrigeerd voor luchtdruk_
+| pass:[<span title="Maakt deel uit van de identificatie">🔑</span>&nbsp;]metercode
+| tekst [1]
+a| _unieke code die een type energiehoeveelheidsmeter aanduidt op basis van metrologische eigenschappen en fabrikant_
+| op afstand uitleesbaar
+| waar of onwaar [1]
+a| _kenmerk dat weergeeft of de meter voldoet aan het Besluit op afstand uitleesbare meetinrichtingen_
+| temperatuurgecorrigeerd
+| waar of onwaar [1]
+a| _aanduiding of de metingen door de meter worden gecorrigeerd voor temperatuur_
+
+|===
+
+
+
+
+
+
+
+
+[[Telwerkdefinitie]]
+== Telwerkdefinitie
+
+_beschrijving van een cumulatieve energiehoeveelheidsmeting ten behoeve van verrekening_
+
+Breder: https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/technische-bedrijfsstandaard[begrip:technische-bedrijfsstandaard]
+
+.Zie ook
+[%collapsible]
+====
+* https://wetten.overheid.nl/jci1.3:c:BWBR0037934&hoofdstuk=2&paragraaf=2.1&artikel=2.1.4&z=2025-01-01&g=2025-01-01[iceg:hoofdstuk=2&paragraaf=2.1&artikel=2.1.4&z=2025-01-01&g=2025-01-01]
+* https://wetten.overheid.nl/jci1.3:c:BWBR0037938&z=2025-05-08&g=2025-05-08[bce:z=2025-05-08&g=2025-05-08]
+====
+
+
+
+
+
+
+.Eigenschappen
+[%autowidth.stretch]
+|===
+| Eigenschap | Waardespecificatie | Omschrijving
+
+| aantal posities voor de komma
+| geheel getal [0..1]
+a| _maximaal aantal posities in het decimale talstelsel dat het telwerk kan bevatten_
+| energierichting
+| <<local:Energierichting,Energierichting>> [0..1]
+a| _https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/energierichting[begrip:energierichting]_
+| meeteenheid
+| <<local:Meeteenheid,Meeteenheid>> [0..1]
+a| _maat waarin natuurkundige grootheden numeriek kunnen worden uitgedrukt_
+| pass:[<span title="Maakt deel uit van de identificatie">🔑</span>&nbsp;]OBIS-code
+| tekst [0..1]
+a| _gestandaardiseerde aanduiding van telwerkbetekenis conform IEC 62056_
+| tariefzone
+| <<local:Tariefzone,Tariefzone>> [0..1]
+a| _aanduiding die aangeeft tijdens welke tariefperiode het telwerk de energie-uitwisseling registreert_
+
+|===
+
+
+
+
+
+
+
+
+
+
+
+'''
+[discrete]
+== Waardelijsten
+
+
+[[local:Aantal-fasen]]
+[discrete]
+=== Aantal fasen
+
+
+
+[%autowidth.stretch]
+|===
+| Waarde | Omschrijving
+
+| 1
+a| 
+| 3
+a| 
+|===
+
+
+
+
+[[local:Energiedrager]]
+[discrete]
+=== Energiedrager
+
+
+
+[%autowidth.stretch]
+|===
+| Waarde | Omschrijving
+
+| elektriciteit
+a| 
+| gas
+a| 
+| waterstof
+a| 
+|===
+
+
+
+
+[[local:Energierichting]]
+[discrete]
+=== Energierichting
+
+
+
+[%autowidth.stretch]
+|===
+| Waarde | Omschrijving
+
+| afname
+a| _https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/afnmame[begrip:afnmame]_
+| invoeding
+a| _https://begrippen.netbeheernederland.nl/energiesysteembeheer/nl/page/invoeding[begrip:invoeding]_
+|===
+
+
+
+
+[[local:G-waarde]]
+[discrete]
+=== G-waarde
+
+
+
+[%autowidth.stretch]
+|===
+| Waarde | Omschrijving
+
+| G10
+a| 
+| G100
+a| 
+| G1000
+a| 
+| G16
+a| 
+| G160
+a| 
+| G1600
+a| 
+| G2
+a| 
+| G25
+a| 
+| G250
+a| 
+| G2500
+a| 
+| G4
+a| 
+| G40
+a| 
+| G400
+a| 
+| G6
+a| 
+| G65
+a| 
+| G650
+a| 
+|===
+
+
+
+
+[[local:Meeteenheid]]
+[discrete]
+=== Meeteenheid
+
+
+
+[%autowidth.stretch]
+|===
+| Waarde | Omschrijving
+
+| kWh
+a| 
+| m3
+a| 
+|===
+
+
+
+
+[[local:Mobiele-netwerktechnologie]]
+[discrete]
+=== Mobiele-netwerktechnologie
+
+
+
+[%autowidth.stretch]
+|===
+| Waarde | Omschrijving
+
+| CDMA
+a| 
+| GPRS
+a| 
+| LTE (450 MHz)
+a| 
+| LTE (commercieel)
+a| 
+| LTE-M (multiband)
+a| _commerciële frequenties en 450 MHz_
+| LTE-M (single band)
+a| 
+|===
+
+
+
+
+[[local:Tariefzone]]
+[discrete]
+=== Tariefzone
+
+
+
+[%autowidth.stretch]
+|===
+| Waarde | Omschrijving
+
+| laag
+a| 
+| normaal
+a| 
+| totaal
+a| 
+|===
+
